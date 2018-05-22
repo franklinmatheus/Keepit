@@ -9,6 +9,6 @@ package br.ufrn.imd.web2.keepit.entity;
  *
  * @author franklin
  */
-public class ClasseSocial {
-    
+public enum ClasseSocial {
+    BAIXA, MEDIA, ALTA
 }

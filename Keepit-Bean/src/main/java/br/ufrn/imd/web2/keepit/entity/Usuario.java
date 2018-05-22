@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -40,6 +42,10 @@ public class Usuario implements Serializable {
     
     @Column(name = "saldo")
     private double saldo;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "classe_social")
+    private ClasseSocial classe_social;
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Despesa> despesas = new ArrayList<>();
@@ -81,6 +87,14 @@ public class Usuario implements Serializable {
         this.saldo = saldo;
     }
 
+    public ClasseSocial getClasse_social() {
+        return classe_social;
+    }
+
+    public void setClasse_social(ClasseSocial classe_social) {
+        this.classe_social = classe_social;
+    }
+
     public List<Despesa> getDespesas() {
         return despesas;
     }
@@ -100,7 +114,7 @@ public class Usuario implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 71 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 43 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
 

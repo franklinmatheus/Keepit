@@ -5,10 +5,13 @@
  */
 package br.ufrn.imd.web2.keepit.entity;
 
+import javax.persistence.MappedSuperclass;
+
 /**
  *
  * @author franklin
  */
+@MappedSuperclass
 public class Solicitacao {
     
 }

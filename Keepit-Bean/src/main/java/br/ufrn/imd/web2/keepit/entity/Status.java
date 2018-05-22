@@ -9,6 +9,6 @@ package br.ufrn.imd.web2.keepit.entity;
  *
  * @author franklin
  */
-public class ClasseMedia extends ClasseSocial {
-    
+public enum Status {
+    INICIADO, AGUARDANDO, CANCELADO, DEFERIDO, INDEFERIDO
 }

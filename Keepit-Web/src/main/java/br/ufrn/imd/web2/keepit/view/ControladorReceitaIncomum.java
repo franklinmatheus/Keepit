@@ -21,7 +21,11 @@ public class ControladorReceitaIncomum {
     @EJB
     public ReceitaIncomumDAO receitaIncomumDAO;
     
-    public void adicionarReceitaIncomum(){
+    public void criarReceitaIncomum(){
         receitaIncomumDAO.create(receitaIncomum);
+    }
+    
+    public boolean verificarValorValido(){
+        return receitaIncomum.getValor() >= 0;
     }
 }

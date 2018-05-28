@@ -59,4 +59,12 @@ public class ReceitaIncomum extends Receita implements Serializable {
     public void setEmissor(String emissor) {
         this.emissor = emissor;
     }
+    
+    public void pegarInformacoes(){
+        
+    }
+    
+    public void adicionarParcelaPosterior(){
+    
+    }
 }

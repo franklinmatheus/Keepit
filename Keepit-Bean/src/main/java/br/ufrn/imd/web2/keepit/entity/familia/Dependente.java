@@ -6,22 +6,26 @@
 package br.ufrn.imd.web2.keepit.entity;
 
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author franklin
  */
+@Entity
+@Table(name = "dependente")
 public class Dependente extends Usuario {
     /**
      * Define o peso do voto do dependente nas votações familiares.
      */
     public static final int PESO = 1;
     
-    @OneToMany(mappedBy = "dependente", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dependente_id", fetch = FetchType.EAGER)
     private List<AuxilioDependencia> auxilios;
     
     @ManyToOne(fetch = FetchType.EAGER)

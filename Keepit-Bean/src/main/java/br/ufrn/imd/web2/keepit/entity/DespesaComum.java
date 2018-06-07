@@ -5,10 +5,14 @@
  */
 package br.ufrn.imd.web2.keepit.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+
 /**
  *
  * @author franklin
  */
-public class DespesaComum extends Despesa {
+@Entity
+public class DespesaComum extends Despesa implements Serializable {
     
 }

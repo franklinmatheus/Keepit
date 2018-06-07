@@ -47,10 +47,10 @@ public class Usuario implements Serializable {
     @Column(name = "classe_social")
     private ClasseSocial classe_social;
     
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario_id", fetch = FetchType.LAZY)
     private List<Despesa> despesas = new ArrayList<>();
     
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario_id", fetch = FetchType.LAZY)
     private List<Receita> receitas = new ArrayList<>();
     
     public Usuario() { }

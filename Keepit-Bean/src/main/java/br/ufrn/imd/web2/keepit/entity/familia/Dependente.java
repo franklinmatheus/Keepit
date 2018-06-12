@@ -32,7 +32,7 @@ public class Dependente extends Usuario {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "familia_id", nullable = false)
     private Familia familia;
-
+    
     public List<AuxilioDependencia> getAuxilios() {
         return auxilios;
     }

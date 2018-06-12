@@ -5,7 +5,11 @@
     <persistence-unit name="KeepitPU" transaction-type="JTA">
         <non-jta-data-source>java:/KeepitDS</non-jta-data-source>
         <properties>
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <!-- Database dropping followed by creation -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+         
+            <!-- Print's out the SQL statement Hibernate is using to the console, useful for debugging -->
+            <property name="hibernate.show_sql" value="false" />         
         </properties>
     </persistence-unit>
 </persistence>

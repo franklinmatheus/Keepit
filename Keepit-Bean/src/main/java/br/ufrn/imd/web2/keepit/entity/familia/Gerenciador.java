@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufrn.imd.web2.keepit.entity;
+package br.ufrn.imd.web2.keepit.entity.familia;
 
+import br.ufrn.imd.web2.keepit.entity.Usuario;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;

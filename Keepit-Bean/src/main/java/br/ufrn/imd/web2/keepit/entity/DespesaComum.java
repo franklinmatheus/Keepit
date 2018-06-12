@@ -7,12 +7,14 @@ package br.ufrn.imd.web2.keepit.entity;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  *
  * @author franklin
  */
 @Entity
+@Table(name = "despesa_comum")
 public class DespesaComum extends Despesa implements Serializable {
     
 }

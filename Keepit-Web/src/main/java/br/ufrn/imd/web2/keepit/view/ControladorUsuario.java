@@ -7,6 +7,7 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.UsuarioDAO;
 import br.ufrn.imd.web2.keepit.entity.Usuario;
+import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -15,16 +16,16 @@ import javax.inject.Named;
  *
  * @author franklin
  */
-@Named
+@Named(value = "controladorUsuario")
 @ApplicationScoped
-public class ControladorUsuario {
-    
-    private Usuario usuario;
+public class ControladorUsuario implements Serializable {
     
     @EJB
     private UsuarioDAO usuarioDAO;
     
-    private void criarUsuario() {
+    private Usuario usuario;
+    
+    public void criarUsuario() {
         usuarioDAO.create(usuario);
     }
 

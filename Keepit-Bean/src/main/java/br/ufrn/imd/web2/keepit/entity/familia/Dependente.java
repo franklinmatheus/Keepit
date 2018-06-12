@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufrn.imd.web2.keepit.entity;
+package br.ufrn.imd.web2.keepit.entity.familia;
 
+import br.ufrn.imd.web2.keepit.entity.Usuario;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ public class Dependente extends Usuario {
      */
     public static final int PESO = 1;
     
-    @OneToMany(mappedBy = "dependente_id", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dependente", fetch = FetchType.EAGER)
     private List<AuxilioDependencia> auxilios;
     
     @ManyToOne(fetch = FetchType.EAGER)

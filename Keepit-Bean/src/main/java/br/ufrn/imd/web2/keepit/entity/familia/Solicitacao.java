@@ -3,15 +3,33 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufrn.imd.web2.keepit.entity;
+package br.ufrn.imd.web2.keepit.entity.familia;
 
-import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 /**
  *
  * @author franklin
  */
-@MappedSuperclass
-public class Solicitacao {
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Solicitacao implements Serializable {
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     
 }

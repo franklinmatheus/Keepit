@@ -5,14 +5,16 @@
  */
 package br.ufrn.imd.web2.keepit.entity;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
 /**
  *
  * @author franklin
  */
-@MappedSuperclass
-public abstract class Despesa {
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Despesa implements Serializable {
 
     @Id
     @GeneratedValue
@@ -20,7 +22,7 @@ public abstract class Despesa {
     private Long id;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id")    
     private Usuario usuario;
 
     public Long getId() {

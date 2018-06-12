@@ -7,7 +7,7 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
-      
+
     <head>
         <title>Keepit</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,15 +15,9 @@ and open the template in the editor.
     <body>
         <p><h:link value="Home" outcome="index"/> > Login</p>
         <hr/>
-        <h3>Usuários</h3>
-        <h:dataTable value="#{controladorUsuario.listaUsuarios()}" var="row">
-            <h:column>#{row.nome}</h:column>
-            <h:column>
-                <h:form>
-                    <h:commandButton actionListener="#{controladorUsuario.remover(row)}" value="Remover" />
-                    <h:commandButton actionListener="#{controladorUsuario.login(row)}" action="logado" value="Login" />
-                </h:form>
-            </h:column>
-        </h:dataTable>
+        <h3>Olá, #{controladorLogin.usuario.nome}</h3>
+        <h:form>
+            <h:commandButton id="submit" value="Logout" actionListener="#{controladorUsuario.logout()}" action="login"/>
+        </h:form>
     </body>
 </html>

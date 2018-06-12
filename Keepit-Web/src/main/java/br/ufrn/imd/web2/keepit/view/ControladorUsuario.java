@@ -5,13 +5,13 @@
  */
 package br.ufrn.imd.web2.keepit.view;
 
-import br.ufrn.imd.web2.keepit.data.UsuarioDAO;
 import br.ufrn.imd.web2.keepit.data.UsuarioLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.Usuario;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -19,16 +19,35 @@ import javax.inject.Named;
  * @author franklin
  */
 @Named(value = "controladorUsuario")
-@ApplicationScoped
+@RequestScoped
 public class ControladorUsuario implements Serializable {
     
     @EJB(beanName = "usuarioDAO", beanInterface = UsuarioLocalDAO.class)
     private UsuarioLocalDAO usuarioDAO;
     
-    private Usuario usuario;
+    @Inject
+    private ControladorLogin controladorLogin;
+    
+    private Usuario usuario = new Usuario();
     
     public void criarUsuario() {
         usuarioDAO.create(usuario);
+    }
+    
+    public List<Usuario> listaUsuarios() {
+        return usuarioDAO.findAll();
+    }
+    
+    public void login(Usuario usuario) {
+        controladorLogin.login(usuario);
+    }
+    
+    public void logout() {
+        controladorLogin.logout();
+    }
+    
+    public void remover(Usuario usuario) {
+        usuarioDAO.remove(usuario);
     }
 
     public Usuario getUsuario() {

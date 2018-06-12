@@ -6,10 +6,12 @@
 package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.UsuarioDAO;
+import br.ufrn.imd.web2.keepit.data.UsuarioLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.Usuario;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 /**
@@ -20,8 +22,8 @@ import javax.inject.Named;
 @ApplicationScoped
 public class ControladorUsuario implements Serializable {
     
-    @EJB
-    private UsuarioDAO usuarioDAO;
+    @EJB(beanName = "usuarioDAO", beanInterface = UsuarioLocalDAO.class)
+    private UsuarioLocalDAO usuarioDAO;
     
     private Usuario usuario;
     

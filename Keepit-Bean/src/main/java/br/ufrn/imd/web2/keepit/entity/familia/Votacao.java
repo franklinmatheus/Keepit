@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufrn.imd.web2.keepit.entity;
+package br.ufrn.imd.web2.keepit.entity.familia;
 
 import java.io.Serializable;
 import javax.persistence.Column;
@@ -11,7 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +27,7 @@ public class Votacao implements Serializable {
     @Column(name = "id")
     private long id;
     
-    @OneToOne(mappedBy = "votacao", fetch = FetchType.EAGER)
-    private Solicitacao solicitacao;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "familia_id")    
+    private Familia familia;
 }

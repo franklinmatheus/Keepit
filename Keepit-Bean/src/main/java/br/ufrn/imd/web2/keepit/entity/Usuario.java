@@ -16,6 +16,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,6 +28,7 @@ import javax.persistence.TemporalType;
  * @author franklin
  */
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "usuario")
 public class Usuario implements Serializable {
     @Id
@@ -47,10 +50,10 @@ public class Usuario implements Serializable {
     @Column(name = "classe_social")
     private ClasseSocial classe_social;
     
-    @OneToMany(mappedBy = "usuario_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Despesa> despesas = new ArrayList<>();
     
-    @OneToMany(mappedBy = "usuario_id", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List<Receita> receitas = new ArrayList<>();
     
     public Usuario() { }

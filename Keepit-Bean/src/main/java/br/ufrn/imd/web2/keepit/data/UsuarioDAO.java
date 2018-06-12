@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author Ailson F. dos Santos
  */
-@Stateless
+@Stateless(name = "usuarioDAO")
 public class UsuarioDAO extends AbstractDAO<Usuario> implements UsuarioLocalDAO {
 
     @PersistenceContext(unitName = "KeepitPU")

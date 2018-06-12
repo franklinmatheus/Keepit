@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.ufrn.imd.web2.keepit.entity;
+package br.ufrn.imd.web2.keepit.entity.familia;
 
 import java.io.Serializable;
 import java.util.List;
@@ -37,15 +37,15 @@ public class Familia implements Serializable {
     @Column(name = "renda_mensal")
     private double renda_mensal;
     
-    @OneToMany(mappedBy = "familia", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "familia", fetch = FetchType.LAZY)
     private List<Votacao> votacoes;
     
-    @OneToOne(mappedBy = "familia", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "familia", fetch = FetchType.LAZY)
     private Gerenciador gerenciador;
     
-    @OneToMany(mappedBy = "familia", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "familia", fetch = FetchType.LAZY)
     private List<Contribuinte> contribuintes;
     
-    @OneToMany(mappedBy = "familia", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "familia", fetch = FetchType.LAZY)
     private List<Dependente> dependentes;
 }

@@ -8,9 +8,6 @@ package br.ufrn.imd.web2.keepit.entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,9 +17,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "receira_incomum")
 public class ReceitaIncomum extends Receita implements Serializable {
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
     
     /**
      * Motivo da receita.
@@ -35,14 +29,6 @@ public class ReceitaIncomum extends Receita implements Serializable {
      */
     @Column(name = "emissor", nullable = true)
     private String emissor;
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
     public String getMotivo() {
         return motivo;

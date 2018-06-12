@@ -5,11 +5,15 @@
  */
 package br.ufrn.imd.web2.keepit.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
@@ -20,8 +24,9 @@ import javax.persistence.TemporalType;
  *
  * @author franklin
  */
-@MappedSuperclass
-public abstract class Receita {
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Receita implements Serializable {
     @Id
     @GeneratedValue
     @Column(name = "id")

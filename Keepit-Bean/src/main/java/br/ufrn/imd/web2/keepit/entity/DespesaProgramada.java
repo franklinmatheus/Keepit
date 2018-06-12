@@ -5,10 +5,16 @@
  */
 package br.ufrn.imd.web2.keepit.entity;
 
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  *
  * @author franklin
  */
-public class DespesaProgramada extends Despesa {
+@Entity
+@Table(name = "despesa_programada")
+public class DespesaProgramada extends Despesa implements Serializable {
     
 }

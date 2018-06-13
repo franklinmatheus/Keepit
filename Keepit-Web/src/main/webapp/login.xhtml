@@ -21,7 +21,7 @@ and open the template in the editor.
             <h:column>
                 <h:form>
                     <h:commandButton actionListener="#{controladorUsuario.remover(row)}" value="Remover" />
-                    <h:commandButton actionListener="#{controladorUsuario.login(row)}" action="logado" value="Login" />
+                    <h:commandButton actionListener="#{controladorLogin.login(row)}" action="restrito/logado.xhtml?faces-redirect=true" value="Login" />
                 </h:form>
             </h:column>
         </h:dataTable>

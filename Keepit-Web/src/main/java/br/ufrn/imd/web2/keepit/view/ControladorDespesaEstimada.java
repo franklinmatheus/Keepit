@@ -11,6 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +35,7 @@ public class ControladorDespesaEstimada {
     public void criarDespesaEstimada() {
         this.despesaEstimada.setUsuario(controladorLogin.getUsuario());
         this.despesaEstimadaDAO.create(despesaEstimada);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa estimada adicionada!", "Sucesso!"));
         this.initObject();
     }
     

@@ -9,20 +9,21 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <head>
+    <h:head>
         <title>Formulário Despesa Programada</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+    </h:head>
     <body>
         <p><h:link value="Inicio" outcome="logado"/> > Adicionar despesa programada</p>
         <hr/>
         <h3>Despesa programada</h3>
         <h:form>
+            <p:messages id="message" />
             <h:panelGrid columns="2">
                 <h:outputLabel value="Titulo da despesa " />
                 <h:inputText value="#{controladorDespesaProgramada.despesaProgramada.titulo}" required="true" autocomplete="true"></h:inputText>
                 <h:outputLabel value="Valor " />
-                <h:inputText value="#{controladorDespesaProgramada.despesaProgramada.valor}" required="true" autocomplete="true"></h:inputText>
+                <p:inputNumber decimalPlaces="2" value="#{controladorDespesaProgramada.despesaProgramada.valor}" required="true" autocomplete="true" />
                 <h:outputLabel value="Data " />
                 <p:calendar value="#{controladorDespesaProgramada.despesaProgramada.data}" />
                 <h:commandButton id="submit" value="Adicionar" actionListener="#{controladorDespesaProgramada.criarDespesaProgramada()}"/>

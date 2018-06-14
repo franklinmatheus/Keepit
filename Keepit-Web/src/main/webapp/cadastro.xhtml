@@ -7,21 +7,31 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <head>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
         <title>Keepit</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+    </h:head>
     <body>
         <p><h:link value="Home" outcome="index"/> > Cadastro</p>
         <h1>Cadastro</h1>
         <hr/>
         <f:view>
             <h:form>
-                <h:outputLabel for="name" value="Nome: "/>
-                <h:inputText id="name" value="#{controladorUsuario.usuario.nome}" required="true" requiredMessage="Error! A name is required!" maxlength="30"/>
-                <br/>
-                <h:commandButton id="submit" value="Cadastrar" actionListener="#{controladorUsuario.criarUsuario()}"/>
+                <p:messages id="message" />
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="name" value="Nome: "/>
+                    <p:inputText id="name" value="#{controladorUsuario.usuario.nome}" required="true" requiredMessage="Error! A name is required!" maxlength="30"/>
+                    <h:outputLabel for="name" value="Data de nascimento (formato: dd/mm/yyyy) "/>
+                    <p:calendar id="data_nascimento" value="#{controladorUsuario.usuario.dataNascimento}" required="true" requiredMessage="Error! A name is required!" maxlength="30"/>
+                    <h:outputLabel for="name" value="Classe social"/>
+                    <p:selectOneMenu value="#{controladorUsuario.usuario.classe_social}">
+                        <f:selectItems value="#{controladorUsuario.listaClasseSocial}" />
+                    </p:selectOneMenu>
+                    <h:commandButton id="submit" value="Cadastrar" actionListener="#{controladorUsuario.criarUsuario()}"/>
+                </h:panelGrid>
             </h:form>
         </f:view>
     </body>

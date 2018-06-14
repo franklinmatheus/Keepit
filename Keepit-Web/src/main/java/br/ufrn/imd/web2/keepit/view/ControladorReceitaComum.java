@@ -11,6 +11,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,6 +35,7 @@ public class ControladorReceitaComum {
     public void criarReceitaComum(){
         this.receitaComum.setUsuario(controladorLogin.getUsuario());
         receitaComumDAO.create(receitaComum);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita comum adicionada!", "Sucesso!"));
         this.initObject();
     }
     

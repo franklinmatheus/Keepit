@@ -14,18 +14,34 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        <p><h:link value="Inicio" outcome="logado"/> > Adicionar receita incomum</p>
+        <hr/>
+        <h3>Receita incomum</h3>
         <h:form>
             <h:panelGrid columns="2">
+                <h:outputLabel value="Titulo da despesa " />
+                <h:inputText value="#{controladorReceitaIncomum.receitaIncomum.titulo}" required="true" autocomplete="true"></h:inputText>
                 <h:outputLabel value="Valor " />
-                <h:inputText value="${controladorReceitaIncomum.receitaIncomum.valor}" required="true" autocomplete="true"></h:inputText>
+                <h:inputText value="#{controladorReceitaIncomum.receitaIncomum.valor}" required="true" autocomplete="true"></h:inputText>
                 <h:outputLabel value="Data " />
                 <p:calendar value="#{controladorReceitaIncomum.receitaIncomum.data}" />
                 <h:outputLabel value="Motivo " />
-                <h:inputText value="${controladorReceitaIncomum.receitaIncomum.motivo}" required="true" autocomplete="true"></h:inputText>
+                <h:inputText value="#{controladorReceitaIncomum.receitaIncomum.motivo}" required="true" autocomplete="true"></h:inputText>
                 <h:outputLabel value="Emissor " />
-                <h:inputText value="${controladorReceitaIncomum.receitaIncomum.emissor}" required="true" autocomplete="true"></h:inputText>
+                <h:inputText value="#{controladorReceitaIncomum.receitaIncomum.emissor}" required="true" autocomplete="true"></h:inputText>
                 <h:commandButton id="submit" value="Adicionar" actionListener="#{controladorReceitaIncomum.criarReceitaIncomum()}"/>
             </h:panelGrid>
         </h:form>
+        <hr/>
+        <h:dataTable value="#{controladorReceitaIncomum.receitasIncomuns}" var="row">
+            <h:column><b>Título da receita incomum </b>#{row.titulo}</h:column>
+            <h:column><b>Valor </b>R$ #{row.valor}</h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton actionListener="#{controladorReceitaIncomum.removerReceitaIncomum(row)}" value="Remover" />
+                    <h:commandButton actionListener="#{controladorReceitaIncomum.setReceitaIncomum(row)}" action="receita-incomum" value="Detalhes" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
     </body>
 </html>

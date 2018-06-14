@@ -6,9 +6,11 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.ReceitaComum;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "receitaComumDAO")
 public class ReceitaComumDAO extends AbstractDAO<ReceitaComum> implements ReceitaComumLocalDAO {
     
-    @PersistenceContext(name = "KeepitPU")
+    @PersistenceContext(unitName = "KeepitPU")
     private EntityManager entityManager;
     
     public ReceitaComumDAO() {
@@ -27,6 +29,14 @@ public class ReceitaComumDAO extends AbstractDAO<ReceitaComum> implements Receit
     @Override
     protected EntityManager getEntityManager() {
         return this.entityManager;
+    }
+
+    @Override
+    public List<ReceitaComum> findByLoggedUser(long idUser) {
+        Query query = entityManager.createQuery("SELECT rc FROM ReceitaComum rc WHERE rc.usuario.id = :id");
+        query.setParameter("id", idUser);
+        List<ReceitaComum> result = query.getResultList();
+        return result;
     }
     
 }

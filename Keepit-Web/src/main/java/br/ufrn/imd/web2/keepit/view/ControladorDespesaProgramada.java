@@ -7,8 +7,11 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.DespesaProgramadaLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.DespesaProgramada;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -19,13 +22,26 @@ import javax.inject.Named;
 @RequestScoped
 public class ControladorDespesaProgramada {
 
+    private DespesaProgramada despesaProgramada;
+    
     @EJB(beanName = "despesaProgramadaDAO", beanInterface = DespesaProgramadaLocalDAO.class)
     private DespesaProgramadaLocalDAO despesaProgramadaDAO;
     
-    private DespesaProgramada despesaProgramada;
+    @Inject
+    private ControladorLogin controladorLogin;
 
     public void criarDespesaProgramada() {
+        this.despesaProgramada.setUsuario(controladorLogin.getUsuario());
         this.despesaProgramadaDAO.create(despesaProgramada);
+        this.initObject();
+    }
+    
+    public void removerDespesaProgramada(DespesaProgramada despesaProgramada) {
+        this.despesaProgramadaDAO.remove(despesaProgramada);
+    }
+    
+    public void atualizarDespesaProgramada() {
+        this.despesaProgramadaDAO.edit(despesaProgramada);
     }
     
     public DespesaProgramada getDespesaProgramada() {
@@ -36,4 +52,12 @@ public class ControladorDespesaProgramada {
         this.despesaProgramada = despesaProgramada;
     }
     
+    public List<DespesaProgramada> getDespesasProgramadas() {
+        return despesaProgramadaDAO.findByLoggedUser(controladorLogin.getUsuario().getId());
+    }
+    
+    @PostConstruct
+    private void initObject() {
+        this.despesaProgramada = new DespesaProgramada();
+    }
 }

@@ -5,12 +5,41 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
-        <title>TODO supply a title</title>
+        <title>Formulário Despesa Comum</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div>TODO write content</div>
+        <p><h:link value="Inicio" outcome="logado"/> > Adicionar despesa comum</p>
+        <hr/>
+        <h3>Despesa comum</h3>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Titulo da despesa " />
+                <h:inputText value="#{controladorDespesaComum.despesaComum.titulo}" required="true" autocomplete="true"></h:inputText>
+                <h:outputLabel value="Valor " />
+                <h:inputText value="#{controladorDespesaComum.despesaComum.valor}" required="true" autocomplete="true"></h:inputText>
+                <h:outputLabel value="Dia do mês " />
+                <h:inputText value="#{controladorDespesaComum.despesaComum.diaDoMes}" required="true" autocomplete="true" />
+                <h:outputLabel value="Atualizar automaticamente?" />
+                <h:selectBooleanCheckbox value="#{controladorDespesaComum.despesaComum.automatica}" />
+                <h:commandButton id="submit" value="Adicionar" actionListener="#{controladorDespesaComum.criarDespesaComum()}"/>
+            </h:panelGrid>
+        </h:form>
+        <hr/>
+        <h:dataTable value="#{controladorDespesaComum.despesasComuns}" var="row">
+            <h:column><b>Título da receita incomum </b>#{row.titulo}</h:column>
+            <h:column><b>Valor </b>R$ #{row.valor}</h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton actionListener="#{controladorDespesaComum.removerDespesaComum(row)}" value="Remover" />
+                    <h:commandButton actionListener="#{controladorDespesaComum.setDespesaComum(row)}" action="receita-incomum" value="Detalhes" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
     </body>
 </html>

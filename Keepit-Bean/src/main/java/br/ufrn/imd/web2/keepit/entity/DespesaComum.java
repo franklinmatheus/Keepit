@@ -6,6 +6,7 @@
 package br.ufrn.imd.web2.keepit.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,4 +18,25 @@ import javax.persistence.Table;
 @Table(name = "despesa_comum")
 public class DespesaComum extends Despesa implements Serializable {
     
+    @Column(name = "automatica")
+    private boolean automatica;
+    
+    @Column(name = "dia_do_mes")
+    private int diaDoMes;
+
+    public int getDiaDoMes() {
+        return diaDoMes;
+    }
+
+    public void setDiaDoMes(int diaDoMes) {
+        this.diaDoMes = diaDoMes;
+    }
+
+    public boolean isAutomatica() {
+        return automatica;
+    }
+
+    public void setAutomatica(boolean automatica) {
+        this.automatica = automatica;
+    }
 }

@@ -25,6 +25,8 @@ public interface DespesaIncomumLocalDAO {
     DespesaIncomum find(Object id);
 
     List<DespesaIncomum> findAll();
+    
+    List<DespesaIncomum> findByLoggedUser(long idUser);
 
     List<DespesaIncomum> findRange(int[] range);
 

@@ -6,7 +6,6 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.DespesaComum;
-import br.ufrn.imd.web2.keepit.entity.ReceitaIncomum;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -26,6 +25,8 @@ public interface DespesaComumLocalDAO {
     DespesaComum find(Object id);
 
     List<DespesaComum> findAll();
+    
+    List<DespesaComum> findByLoggedUser(long idUser);
 
     List<DespesaComum> findRange(int[] range);
 

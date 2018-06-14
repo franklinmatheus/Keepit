@@ -13,13 +13,10 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <p><h:link value="Home" outcome="index"/> > Login</p>
+        <p>Inicio</p>
         <hr/>
         <h3>Olá, #{controladorLogin.usuario.nome}</h3>
-        <h:form>
-            <h:commandButton id="submit" value="Logout" actionListener="#{controladorLogin.logout()}" action="/login.xhtml?faces-redirect=true"/>
-        </h:form>
-        <h:panelGrid>
+        <h:panelGrid columns="2">
             <h:button value="Adicionar receita incomum" outcome="formulario-receita-incomum" />
             <h:button value="Adicionar receita comum" outcome="formulario-receita-comum" />
             <h:button value="Adicionar despesa incomum" outcome="formulario-despesa-incomum" />
@@ -27,5 +24,9 @@ and open the template in the editor.
             <h:button value="Adicionar despesa estimada" outcome="formulario-despesa-estimada" />
             <h:button value="Adicionar despesa programada" outcome="formulario-despesa-programada" />
         </h:panelGrid>
+        <hr/>
+        <h:form>
+            <h:commandButton id="submit" value="Logout" actionListener="#{controladorLogin.logout()}" action="/login.xhtml?faces-redirect=true"/>
+        </h:form>
     </body>
 </html>

@@ -6,9 +6,11 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.ReceitaIncomum;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,14 @@ public class ReceitaIncomumDAO extends AbstractDAO<ReceitaIncomum> implements Re
 
     public ReceitaIncomumDAO() {
         super(ReceitaIncomum.class);
+    }
+    
+    @Override
+    public List<ReceitaIncomum> findByLoggedUser(long idUser) {
+        Query query = em.createQuery("SELECT ri FROM ReceitaIncomum ri WHERE ri.usuario.id = :id");
+        query.setParameter("id", idUser);
+        List<ReceitaIncomum> result = query.getResultList();
+        return result;
     }
     
 }

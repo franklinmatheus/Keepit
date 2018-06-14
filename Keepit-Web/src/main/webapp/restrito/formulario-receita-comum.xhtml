@@ -14,16 +14,32 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        <p><h:link value="Inicio" outcome="logado"/> > Adicionar receita comum</p>
+        <hr/>
+        <h3>Receita comum</h3>
         <h:form>
             <h:panelGrid columns="2">
+                <h:outputLabel value="Titulo da despesa " />
+                <h:inputText value="#{controladorReceitaComum.receitaComum.titulo}" required="true" autocomplete="true"></h:inputText>
                 <h:outputLabel value="Valor " />
-                <h:inputText value="${controladorReceitaComum.receitaComum.valor}" required="true" autocomplete="true"></h:inputText>
-                <h:outputLabel value="Data " />
-                <p:calendar value="#{controladorReceitaComum.receitaComum.data}" />
+                <h:inputText value="#{controladorReceitaComum.receitaComum.valor}" required="true" autocomplete="true"></h:inputText>
+                <h:outputLabel value="Dia do mês " />
+                <h:inputText value="#{controladorReceitaComum.receitaComum.diaDoMes}" required="true" autocomplete="true" />
                 <h:outputLabel value="Atualizar automaticamente?" />
-                <h:selectBooleanCheckbox value="${controladorReceitaComum.receitaComum.automatica}" />
+                <h:selectBooleanCheckbox value="#{controladorReceitaComum.receitaComum.automatica}" />
                 <h:commandButton id="submit" value="Adicionar" actionListener="#{controladorReceitaComum.criarReceitaComum()}"/>
             </h:panelGrid>
         </h:form>
+        <hr/>
+        <h:dataTable value="#{controladorReceitaComum.receitasComuns}" var="row">
+            <h:column><b>Título da receita comum </b>#{row.titulo}</h:column>
+            <h:column><b>Valor </b>R$ #{row.valor}</h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton actionListener="#{controladorReceitaComum.removerReceitaComum(row)}" value="Remover" />
+                    <h:commandButton actionListener="#{controladorReceitaComum.setReceitaComum(rowreceitaComum)}" action="receita-comum" value="Detalhes" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
     </body>
 </html>

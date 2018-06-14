@@ -16,7 +16,6 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -31,6 +30,9 @@ public abstract class Receita implements Serializable {
     @GeneratedValue
     @Column(name = "id")
     private long id;
+    
+    @Column(name = "titulo")
+    private String titulo;
     
     /**
      * Valor da receita.
@@ -57,6 +59,14 @@ public abstract class Receita implements Serializable {
         this.id = id;
     }
 
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
     public double getValor() {
         return valor;
     }
@@ -71,6 +81,14 @@ public abstract class Receita implements Serializable {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

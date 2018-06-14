@@ -25,6 +25,8 @@ public interface DespesaProgramadaLocalDAO {
     DespesaProgramada find(Object id);
 
     List<DespesaProgramada> findAll();
+    
+    List<DespesaProgramada> findByLoggedUser(long idUser);
 
     List<DespesaProgramada> findRange(int[] range);
 

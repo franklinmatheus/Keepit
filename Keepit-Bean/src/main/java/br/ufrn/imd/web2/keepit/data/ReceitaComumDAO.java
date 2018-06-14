@@ -6,6 +6,7 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.ReceitaComum;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,5 +39,12 @@ public class ReceitaComumDAO extends AbstractDAO<ReceitaComum> implements Receit
         List<ReceitaComum> result = query.getResultList();
         return result;
     }
-    
+
+    @Override
+    protected void validate(ReceitaComum entity) throws BusinessException {
+        if(entity.getValor() < 0)
+            throw new BusinessException("Valor negativo inválido!");
+        else if(entity.getDiaDoMes() < 1 || entity.getDiaDoMes() > 30)
+            throw new BusinessException("Dia inválido");
+    }
 }

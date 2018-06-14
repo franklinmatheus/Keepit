@@ -5,6 +5,7 @@
  */
 package br.ufrn.imd.web2.keepit.data;
 
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -23,7 +24,10 @@ public abstract class AbstractDAO<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
+    protected abstract void validate(T entity) throws BusinessException;
+    
+    public void create(T entity) throws BusinessException {
+        validate(entity);
         getEntityManager().persist(entity);
     }
 

@@ -6,12 +6,17 @@
 package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.UsuarioLocalDAO;
+import br.ufrn.imd.web2.keepit.entity.ClasseSocial;
 import br.ufrn.imd.web2.keepit.entity.Usuario;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -28,7 +33,12 @@ public class ControladorUsuario implements Serializable {
     private Usuario usuario;
     
     public void criarUsuario() {
-        usuarioDAO.create(usuario);
+        try {
+            usuarioDAO.create(usuario);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário cadastrado!", "Sucesso!"));
+        } catch(BusinessException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Falha!"));
+        }
         this.initObject();
     }
     
@@ -46,6 +56,14 @@ public class ControladorUsuario implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+    
+    public List<String> getListaClasseSocial() {
+        List<String> classes = new ArrayList<>();
+        classes.add((ClasseSocial.BAIXA).toString());
+        classes.add((ClasseSocial.MEDIA).toString());
+        classes.add((ClasseSocial.ALTA).toString());
+        return classes;
     }
     
     @PostConstruct

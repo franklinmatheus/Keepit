@@ -7,10 +7,13 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.DespesaProgramadaLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.DespesaProgramada;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -32,7 +35,12 @@ public class ControladorDespesaProgramada {
 
     public void criarDespesaProgramada() {
         this.despesaProgramada.setUsuario(controladorLogin.getUsuario());
-        this.despesaProgramadaDAO.create(despesaProgramada);
+        try {
+            this.despesaProgramadaDAO.create(despesaProgramada);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa programada adicionada!", "Sucesso!"));
+        } catch(BusinessException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), "Falha!"));
+        }
         this.initObject();
     }
     

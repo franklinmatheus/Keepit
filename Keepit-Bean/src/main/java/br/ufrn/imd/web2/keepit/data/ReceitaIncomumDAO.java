@@ -6,6 +6,8 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.ReceitaIncomum;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,7 +32,7 @@ public class ReceitaIncomumDAO extends AbstractDAO<ReceitaIncomum> implements Re
     public ReceitaIncomumDAO() {
         super(ReceitaIncomum.class);
     }
-    
+
     @Override
     public List<ReceitaIncomum> findByLoggedUser(long idUser) {
         Query query = em.createQuery("SELECT ri FROM ReceitaIncomum ri WHERE ri.usuario.id = :id");
@@ -38,5 +40,15 @@ public class ReceitaIncomumDAO extends AbstractDAO<ReceitaIncomum> implements Re
         List<ReceitaIncomum> result = query.getResultList();
         return result;
     }
-    
+
+    @Override
+    protected void validate(ReceitaIncomum entity) throws BusinessException {
+        Date hoje = new Date();
+        if (entity.getData().compareTo(hoje) > 0) {
+            throw new BusinessException("Data inválida!");
+        } else if (entity.getValor() <= 0) {
+            throw new BusinessException("Valor inválido!");
+        }
+    }
+
 }

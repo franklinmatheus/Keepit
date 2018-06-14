@@ -6,6 +6,7 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.ReceitaIncomum;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -16,7 +17,7 @@ import javax.ejb.Local;
 @Local
 public interface ReceitaIncomumLocalDAO {
 
-    void create(ReceitaIncomum receitaIncomum);
+    void create(ReceitaIncomum receitaIncomum) throws BusinessException;
 
     void edit(ReceitaIncomum receitaIncomum);
 

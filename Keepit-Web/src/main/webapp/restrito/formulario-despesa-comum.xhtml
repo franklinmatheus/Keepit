@@ -9,24 +9,25 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <head>
+    <h:head>
         <title>Formulário Despesa Comum</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+    </h:head>
     <body>
         <p><h:link value="Inicio" outcome="logado"/> > Adicionar despesa comum</p>
         <hr/>
         <h3>Despesa comum</h3>
         <h:form>
+            <p:messages id="message" />
             <h:panelGrid columns="2">
                 <h:outputLabel value="Titulo da despesa " />
-                <h:inputText value="#{controladorDespesaComum.despesaComum.titulo}" required="true" autocomplete="true"></h:inputText>
+                <p:inputText value="#{controladorDespesaComum.despesaComum.titulo}" required="true" autocomplete="true" />
                 <h:outputLabel value="Valor " />
-                <h:inputText value="#{controladorDespesaComum.despesaComum.valor}" required="true" autocomplete="true"></h:inputText>
+                <p:inputNumber decimalPlaces="2" value="#{controladorDespesaComum.despesaComum.valor}" required="true" autocomplete="true" />
                 <h:outputLabel value="Dia do mês " />
-                <h:inputText value="#{controladorDespesaComum.despesaComum.diaDoMes}" required="true" autocomplete="true" />
+                <p:inputNumber decimalPlaces="0" value="#{controladorDespesaComum.despesaComum.diaDoMes}" required="true" autocomplete="true" />
                 <h:outputLabel value="Atualizar automaticamente?" />
-                <h:selectBooleanCheckbox value="#{controladorDespesaComum.despesaComum.automatica}" />
+                <p:selectBooleanCheckbox value="#{controladorDespesaComum.despesaComum.automatica}" />
                 <h:commandButton id="submit" value="Adicionar" actionListener="#{controladorDespesaComum.criarDespesaComum()}"/>
             </h:panelGrid>
         </h:form>

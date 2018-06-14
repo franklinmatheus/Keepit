@@ -26,6 +26,8 @@ public interface DespesaEstimadaLocalDAO {
     DespesaEstimada find(Object id);
 
     List<DespesaEstimada> findAll();
+    
+    List<DespesaEstimada> findByLoggedUser(long idUser);
 
     List<DespesaEstimada> findRange(int[] range);
 

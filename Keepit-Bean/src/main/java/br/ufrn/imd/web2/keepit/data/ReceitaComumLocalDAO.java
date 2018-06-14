@@ -25,6 +25,8 @@ public interface ReceitaComumLocalDAO {
     ReceitaComum find(Object id);
 
     List<ReceitaComum> findAll();
+    
+    List<ReceitaComum> findByLoggedUser(long idUser);
 
     List<ReceitaComum> findRange(int[] range);
 

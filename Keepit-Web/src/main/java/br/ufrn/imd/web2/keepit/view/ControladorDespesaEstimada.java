@@ -7,8 +7,11 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.DespesaEstimadaLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.DespesaEstimada;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -19,13 +22,26 @@ import javax.inject.Named;
 @RequestScoped
 public class ControladorDespesaEstimada {
     
+    private DespesaEstimada despesaEstimada;
+    
     @EJB(beanName = "despesaEstimadaDAO", beanInterface = DespesaEstimadaLocalDAO.class)
     private DespesaEstimadaLocalDAO despesaEstimadaDAO;
     
-    private DespesaEstimada despesaEstimada;
+    @Inject
+    private ControladorLogin controladorLogin;
 
     public void criarDespesaEstimada() {
+        this.despesaEstimada.setUsuario(controladorLogin.getUsuario());
         this.despesaEstimadaDAO.create(despesaEstimada);
+        this.initObject();
+    }
+    
+    public void removerDespesaEstimada(DespesaEstimada despesaEstimada) {
+        this.despesaEstimadaDAO.remove(despesaEstimada);
+    }
+    
+    public void atualizarDespesaEstimada(DespesaEstimada despesaEstimada) {
+        this.despesaEstimadaDAO.edit(despesaEstimada);
     }
     
     public DespesaEstimada getDespesaEstimada() {
@@ -36,4 +52,12 @@ public class ControladorDespesaEstimada {
         this.despesaEstimada = despesaEstimada;
     }
     
+    public List<DespesaEstimada> getDespesasEstimadas() {
+        return despesaEstimadaDAO.findByLoggedUser(controladorLogin.getUsuario().getId());
+    }
+    
+    @PostConstruct
+    private void initObject() {
+        this.despesaEstimada = new DespesaEstimada();
+    }
 }

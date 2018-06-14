@@ -5,12 +5,39 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <head>
-        <title>TODO supply a title</title>
+        <title>Formulário Despesa Programada</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div>TODO write content</div>
+        <p><h:link value="Inicio" outcome="logado"/> > Adicionar despesa programada</p>
+        <hr/>
+        <h3>Despesa programada</h3>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Titulo da despesa " />
+                <h:inputText value="#{controladorDespesaProgramada.despesaProgramada.titulo}" required="true" autocomplete="true"></h:inputText>
+                <h:outputLabel value="Valor " />
+                <h:inputText value="#{controladorDespesaProgramada.despesaProgramada.valor}" required="true" autocomplete="true"></h:inputText>
+                <h:outputLabel value="Data " />
+                <p:calendar value="#{controladorDespesaProgramada.despesaProgramada.data}" />
+                <h:commandButton id="submit" value="Adicionar" actionListener="#{controladorDespesaProgramada.criarDespesaProgramada()}"/>
+            </h:panelGrid>
+        </h:form>
+        <hr/>
+        <h:dataTable value="#{controladorDespesaProgramada.despesasProgramadas}" var="row">
+            <h:column><b>Título da despesa programada </b>#{row.titulo}</h:column>
+            <h:column><b>Valor </b>R$ #{row.valor}</h:column>
+            <h:column>
+                <h:form>
+                    <h:commandButton actionListener="#{controladorDespesaProgramada.removerDespesaProgramada(row)}" value="Remover" />
+                    <h:commandButton actionListener="#{controladorDespesaProgramada.setDespesaProgramada(row)}" action="despesa-programada" value="Detalhes" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
     </body>
 </html>

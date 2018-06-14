@@ -9,9 +9,9 @@ import br.ufrn.imd.web2.keepit.data.UsuarioLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.Usuario;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -25,25 +25,15 @@ public class ControladorUsuario implements Serializable {
     @EJB(beanName = "usuarioDAO", beanInterface = UsuarioLocalDAO.class)
     private UsuarioLocalDAO usuarioDAO;
     
-    @Inject
-    private ControladorLogin controladorLogin;
-    
-    private Usuario usuario = new Usuario();
+    private Usuario usuario;
     
     public void criarUsuario() {
         usuarioDAO.create(usuario);
+        this.initObject();
     }
     
     public List<Usuario> listaUsuarios() {
         return usuarioDAO.findAll();
-    }
-    
-    public void login(Usuario usuario) {
-        controladorLogin.login(usuario);
-    }
-    
-    public void logout() {
-        controladorLogin.logout();
     }
     
     public void remover(Usuario usuario) {
@@ -56,5 +46,10 @@ public class ControladorUsuario implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+    
+    @PostConstruct
+    private void initObject() {
+        this.usuario = new Usuario();
     }
 }

@@ -6,6 +6,7 @@
 package br.ufrn.imd.web2.keepit.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,4 +18,14 @@ import javax.persistence.Table;
 @Table(name = "despesa_estimada")
 public class DespesaEstimada extends Despesa implements Serializable {
     
+    @Column(name = "confirmada")
+    private boolean confirmada;
+
+    public boolean isConfirmada() {
+        return confirmada;
+    }
+
+    public void setConfirmada(boolean confirmada) {
+        this.confirmada = confirmada;
+    }
 }

@@ -6,9 +6,11 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.DespesaComum;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "despesaComumDAO")
 public class DespesaComumDAO extends AbstractDAO<DespesaComum> implements DespesaComumLocalDAO {
 
-    @PersistenceContext(name = "KeepitPU")
+    @PersistenceContext(unitName = "KeepitPU")
     private EntityManager entityManager;
     
     public DespesaComumDAO() {
@@ -27,6 +29,14 @@ public class DespesaComumDAO extends AbstractDAO<DespesaComum> implements Despes
     @Override
     protected EntityManager getEntityManager() {
         return this.entityManager;
+    }
+
+    @Override
+    public List<DespesaComum> findByLoggedUser(long idUser) {
+        Query query = entityManager.createQuery("SELECT dc FROM DespesaComum dc WHERE dc.usuario.id = :id");
+        query.setParameter("id", idUser);
+        List<DespesaComum> result = query.getResultList();
+        return result;
     }
     
 }

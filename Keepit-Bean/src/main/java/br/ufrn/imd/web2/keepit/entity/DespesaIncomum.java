@@ -6,6 +6,7 @@
 package br.ufrn.imd.web2.keepit.entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -17,4 +18,17 @@ import javax.persistence.Table;
 @Table(name = "despesa_incomum")
 public class DespesaIncomum extends Despesa implements Serializable {
     
+    /**
+     * e.g. loja que o gasto foi realizado
+     */
+    @Column(name = "destino", nullable = true)
+    private String destino;
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
 }

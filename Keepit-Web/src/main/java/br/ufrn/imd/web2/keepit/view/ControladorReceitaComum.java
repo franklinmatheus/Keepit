@@ -7,8 +7,11 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.ReceitaComumLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.ReceitaComum;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -19,11 +22,28 @@ import javax.inject.Named;
 @RequestScoped
 public class ControladorReceitaComum {
  
-    private ReceitaComum receitaComum = new ReceitaComum();
+    private ReceitaComum receitaComum;
     
     @EJB(beanName = "receitaComumDAO", beanInterface = ReceitaComumLocalDAO.class)
     private ReceitaComumLocalDAO receitaComumDAO;
-
+    
+    @Inject
+    private ControladorLogin controladorLogin;
+    
+    public void criarReceitaComum(){
+        this.receitaComum.setUsuario(controladorLogin.getUsuario());
+        receitaComumDAO.create(receitaComum);
+        this.initObject();
+    }
+    
+    public void removerReceitaComum(ReceitaComum receitaComum) {
+        this.receitaComumDAO.remove(receitaComum);
+    }
+    
+    public void atualizarReceitaComum() {
+        this.receitaComumDAO.edit(receitaComum);
+    }
+    
     public ReceitaComum getReceitaComum() {
         return receitaComum;
     }
@@ -32,8 +52,12 @@ public class ControladorReceitaComum {
         this.receitaComum = receitaComum;
     }
     
-    public void criarReceitaComum(){
-        receitaComumDAO.create(receitaComum);
+    public List<ReceitaComum> getReceitasComuns() {
+        return receitaComumDAO.findByLoggedUser(controladorLogin.getUsuario().getId());
     }
     
+    @PostConstruct
+    private void initObject() {
+        this.receitaComum = new ReceitaComum();
+    }
 }

@@ -6,9 +6,11 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.DespesaProgramada;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -17,7 +19,7 @@ import javax.persistence.PersistenceContext;
 @Stateless(name = "despesaProgramadaDAO")
 public class DespesaProgramadaDAO extends AbstractDAO<DespesaProgramada> implements DespesaProgramadaLocalDAO {
 
-    @PersistenceContext(name = "KeepitPU")
+    @PersistenceContext(unitName = "KeepitPU")
     private EntityManager entityManager;
     
     public DespesaProgramadaDAO() {
@@ -28,5 +30,12 @@ public class DespesaProgramadaDAO extends AbstractDAO<DespesaProgramada> impleme
     protected EntityManager getEntityManager() {
         return this.entityManager;
     }
-    
+
+    @Override
+    public List<DespesaProgramada> findByLoggedUser(long idUser) {
+        Query query = entityManager.createQuery("SELECT dp FROM DespesaProgramada dp WHERE dp.usuario.id = :id");
+        query.setParameter("id", idUser);
+        List<DespesaProgramada> result = query.getResultList();
+        return result;
+    }    
 }

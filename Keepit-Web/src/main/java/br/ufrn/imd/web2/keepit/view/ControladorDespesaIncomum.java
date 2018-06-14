@@ -7,8 +7,11 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.DespesaIncomumLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.DespesaIncomum;
+import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -19,13 +22,26 @@ import javax.inject.Named;
 @RequestScoped
 public class ControladorDespesaIncomum {
     
+    private DespesaIncomum despesaIncomum;
+    
     @EJB(beanName = "despesaIncomumDAO", beanInterface = DespesaIncomumLocalDAO.class)
     private DespesaIncomumLocalDAO despesaIncomumDAO;
     
-    private DespesaIncomum despesaIncomum;
+    @Inject
+    private ControladorLogin controladorLogin;
 
     public void criarDespesaIncomum() {
+        this.despesaIncomum.setUsuario(controladorLogin.getUsuario());
         this.despesaIncomumDAO.create(despesaIncomum);
+        this.initObject();
+    }
+    
+    public void removerDespesaIncomum(DespesaIncomum despesaIncomum) {
+        this.despesaIncomumDAO.remove(despesaIncomum);
+    }
+    
+    public void atualizarDespesaIncomum() {
+        this.despesaIncomumDAO.edit(despesaIncomum);
     }
     
     public DespesaIncomum getDespesaIncomum() {
@@ -36,4 +52,12 @@ public class ControladorDespesaIncomum {
         this.despesaIncomum = despesaIncomum;
     }
     
+    public List<DespesaIncomum> getDespesasIncomuns() {
+        return despesaIncomumDAO.findByLoggedUser(controladorLogin.getUsuario().getId());
+    }
+    
+    @PostConstruct
+    private void initObject() {
+        this.despesaIncomum = new DespesaIncomum();
+    }
 }

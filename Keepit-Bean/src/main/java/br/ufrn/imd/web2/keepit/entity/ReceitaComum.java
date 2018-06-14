@@ -24,6 +24,17 @@ public class ReceitaComum extends Receita implements Serializable {
     @Column(name = "automatica")
     private boolean automatica;
 
+    @Column(name = "dia_do_mes")
+    private int diaDoMes;
+
+    public int getDiaDoMes() {
+        return diaDoMes;
+    }
+
+    public void setDiaDoMes(int diaDoMes) {
+        this.diaDoMes = diaDoMes;
+    }
+
     public boolean isAutomatica() {
         return automatica;
     }

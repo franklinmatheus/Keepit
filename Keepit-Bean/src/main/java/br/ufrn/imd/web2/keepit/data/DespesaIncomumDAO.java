@@ -6,6 +6,8 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.DespesaIncomum;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -38,5 +40,13 @@ public class DespesaIncomumDAO extends AbstractDAO<DespesaIncomum> implements De
         List<DespesaIncomum> result = query.getResultList();
         return result;
     }
-    
+
+    @Override
+    protected void validate(DespesaIncomum entity) throws BusinessException {
+        Date hoje = new Date();
+        if(entity.getData().compareTo(hoje) > 0)
+            throw new BusinessException("Data inválida!");
+        else if(entity.getValor() <= 0)
+            throw new BusinessException("Valor inválido!");
+    }
 }

@@ -8,6 +8,7 @@ package br.ufrn.imd.web2.keepit.view;
 import br.ufrn.imd.web2.keepit.data.UsuarioLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.ClasseSocial;
 import br.ufrn.imd.web2.keepit.entity.Usuario;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,12 @@ public class ControladorUsuario implements Serializable {
     private Usuario usuario;
     
     public void criarUsuario() {
-        usuarioDAO.create(usuario);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário cadastrado!", "Sucesso!"));
+        try {
+            usuarioDAO.create(usuario);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário cadastrado!", "Sucesso!"));
+        } catch(BusinessException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Falha!"));
+        }
         this.initObject();
     }
     

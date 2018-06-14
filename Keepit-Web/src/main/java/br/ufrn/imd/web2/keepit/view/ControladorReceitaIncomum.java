@@ -7,6 +7,7 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.ReceitaIncomumLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.ReceitaIncomum;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.*;
@@ -41,8 +42,12 @@ public class ControladorReceitaIncomum {
     
     public void criarReceitaIncomum(){
         this.receitaIncomum.setUsuario(controladorLogin.getUsuario());
+        try {
         receitaIncomumDAO.create(receitaIncomum);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita incomum adicionada!", "Sucesso!"));
+        } catch(BusinessException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Falha!"));
+        }
         this.initObject();
     }
     

@@ -6,6 +6,8 @@
 package br.ufrn.imd.web2.keepit.data;
 
 import br.ufrn.imd.web2.keepit.entity.DespesaProgramada;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,11 +23,11 @@ public class DespesaProgramadaDAO extends AbstractDAO<DespesaProgramada> impleme
 
     @PersistenceContext(unitName = "KeepitPU")
     private EntityManager entityManager;
-    
+
     public DespesaProgramadaDAO() {
         super(DespesaProgramada.class);
     }
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return this.entityManager;
@@ -37,5 +39,15 @@ public class DespesaProgramadaDAO extends AbstractDAO<DespesaProgramada> impleme
         query.setParameter("id", idUser);
         List<DespesaProgramada> result = query.getResultList();
         return result;
-    }    
+    }
+
+    @Override
+    protected void validate(DespesaProgramada entity) throws BusinessException {
+        Date hoje = new Date();
+        if (entity.getValor() < 0) {
+            throw new BusinessException("Valor negativo inválido!");
+        } else if (entity.getData().compareTo(hoje) < 0) {
+            throw new BusinessException("Data inválido");
+        }
+    }
 }

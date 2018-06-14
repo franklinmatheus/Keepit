@@ -7,6 +7,7 @@ package br.ufrn.imd.web2.keepit.view;
 
 import br.ufrn.imd.web2.keepit.data.DespesaIncomumLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.DespesaIncomum;
+import br.ufrn.imd.web2.keepit.exception.BusinessException;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -34,8 +35,12 @@ public class ControladorDespesaIncomum {
 
     public void criarDespesaIncomum() {
         this.despesaIncomum.setUsuario(controladorLogin.getUsuario());
-        this.despesaIncomumDAO.create(despesaIncomum);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa incomum adicionada!", "Sucesso!"));
+        try {
+            this.despesaIncomumDAO.create(despesaIncomum);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa incomum adicionada!", "Sucesso!"));
+        } catch(BusinessException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), "Falha!"));
+        }
         this.initObject();
     }
     

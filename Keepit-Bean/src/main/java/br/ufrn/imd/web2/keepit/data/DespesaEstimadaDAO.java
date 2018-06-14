@@ -5,28 +5,27 @@
  */
 package br.ufrn.imd.web2.keepit.data;
 
-import br.ufrn.imd.web2.keepit.entity.ReceitaIncomum;
+import br.ufrn.imd.web2.keepit.entity.DespesaEstimada;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Ailson F. dos Santos
+ * @author franklin
  */
-@Stateless(name = "receitaIncomumDAO")
-public class ReceitaIncomumDAO extends AbstractDAO<ReceitaIncomum> implements ReceitaIncomumLocalDAO {
-
+@Stateless(name = "despesaEstimadaDAO")
+public class DespesaEstimadaDAO extends AbstractDAO<DespesaEstimada> implements DespesaEstimadaLocalDAO {
+    
     @PersistenceContext(unitName = "KeepitPU")
-    private EntityManager em;
+    private EntityManager entityManager;
+    
+    public DespesaEstimadaDAO() {
+        super(DespesaEstimada.class);
+    }
 
     @Override
     protected EntityManager getEntityManager() {
-        return em;
+        return this.entityManager;
     }
-
-    public ReceitaIncomumDAO() {
-        super(ReceitaIncomum.class);
-    }
-    
 }

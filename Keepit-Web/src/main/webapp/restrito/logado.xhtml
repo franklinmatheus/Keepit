@@ -19,5 +19,13 @@ and open the template in the editor.
         <h:form>
             <h:commandButton id="submit" value="Logout" actionListener="#{controladorLogin.logout()}" action="/login.xhtml?faces-redirect=true"/>
         </h:form>
+        <h:panelGrid>
+            <h:button value="Adicionar receita incomum" outcome="formulario-receita-incomum" />
+            <h:button value="Adicionar receita comum" outcome="formulario-receita-comum" />
+            <h:button value="Adicionar despesa incomum" outcome="formulario-despesa-incomum" />
+            <h:button value="Adicionar despesa comum" outcome="formulario-despesa-comum" />
+            <h:button value="Adicionar despesa estimada" outcome="formulario-despesa-estimada" />
+            <h:button value="Adicionar despesa programada" outcome="formulario-despesa-programada" />
+        </h:panelGrid>
     </body>
 </html>

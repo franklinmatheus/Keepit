@@ -5,9 +5,10 @@
  */
 package br.ufrn.imd.web2.keepit.view;
 
-import br.ufrn.imd.web2.keepit.data.ReceitaIncomumDAO;
+import br.ufrn.imd.web2.keepit.data.ReceitaIncomumLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.ReceitaIncomum;
 import javax.ejb.*;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.*;
 
 /**
@@ -15,12 +16,13 @@ import javax.inject.*;
  * @author Ailson F. dos Santos
  */
 @Named(value = "controladorReceitaIncomum")
+@RequestScoped
 public class ControladorReceitaIncomum {
     
-    public ReceitaIncomum receitaIncomum;
+    private ReceitaIncomum receitaIncomum = new ReceitaIncomum();
     
-    @EJB
-    public ReceitaIncomumDAO receitaIncomumDAO;
+    @EJB(beanName = "receitaIncomumDAO", beanInterface = ReceitaIncomumLocalDAO.class)
+    private ReceitaIncomumLocalDAO receitaIncomumDAO;
 
     public ReceitaIncomum getReceitaIncomum() {
         return receitaIncomum;
@@ -32,9 +34,5 @@ public class ControladorReceitaIncomum {
     
     public void criarReceitaIncomum(){
         receitaIncomumDAO.create(receitaIncomum);
-    }
-    
-    public boolean verificarValorValido(){
-        return receitaIncomum.getValor() >= 0;
     }
 }

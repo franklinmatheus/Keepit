@@ -93,6 +93,7 @@ public class ControladorReceitaIncomum {
         for(ReceitaIncomum receita : receitas) {
             if(!receita.isAtualizada() && receita.getData().compareTo(hoje) <= 0) {
                 this.controladorLogin.getUsuario().setSaldo(this.controladorLogin.getUsuario().getSaldo() + receita.getValor());
+                this.controladorUsuario.editarUsuario(controladorLogin.getUsuario());
                 receita.setAtualizada(true);
                 this.editarReceitaIncomum(receita);
                 quantidade++;

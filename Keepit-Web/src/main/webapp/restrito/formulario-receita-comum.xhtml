@@ -35,10 +35,16 @@ and open the template in the editor.
         <h:dataTable value="#{controladorReceitaComum.receitasComuns}" var="row">
             <h:column><b>Título da receita comum </b>#{row.titulo}</h:column>
             <h:column><b>Valor </b>R$ #{row.valor}</h:column>
+            <h:column><b>Dia de creditar </b>#{row.diaDoMes}</h:column>
             <h:column>
                 <h:form>
-                    <h:commandButton actionListener="#{controladorReceitaComum.removerReceitaComum(row)}" value="Remover" />
-                    <h:commandButton actionListener="#{controladorReceitaComum.setReceitaComum(rowreceitaComum)}" action="receita-comum" value="Detalhes" />
+                    <h:panelGrid columns="2">
+                        <h:commandButton actionListener="#{controladorReceitaComum.removerReceitaComum(row)}" value="Remover" />
+                        <h:outputLabel rendered="#{row.automatica and row.data != null}" value="Última atualização: #{row.data.toString()}" />
+                        <h:outputLabel rendered="#{row.automatica and row.data eq null}" value="Será aplicada somente próximo dia #{row.diaDoMes}" />
+                        <h:commandButton rendered="#{not row.automatica and controladorReceitaComum.estaAtrasada(row)}" actionListener="#{controladorReceitaComum.atualizarReceitaComum(row)}" value="Atualizar!" />
+                        <h:outputLabel rendered="#{not row.automatica and not controladorReceitaComum.estaAtrasada(row)}" value="Já está atualizada!" />
+                    </h:panelGrid>
                 </h:form>
             </h:column>
         </h:dataTable>

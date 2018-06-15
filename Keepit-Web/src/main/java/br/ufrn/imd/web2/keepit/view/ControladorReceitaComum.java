@@ -63,6 +63,7 @@ public class ControladorReceitaComum {
 
     public void removerReceitaComum(ReceitaComum receitaComum) {
         this.receitaComumDAO.remove(receitaComum);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita " + receitaComum.getTitulo() + " foi removida!" , "Falha!"));
     }
 
     public void editarReceitaComum(ReceitaComum receitaComum) {

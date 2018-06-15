@@ -39,7 +39,7 @@ public class ControladorDespesaProgramada {
             this.despesaProgramadaDAO.create(despesaProgramada);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa programada adicionada!", "Sucesso!"));
         } catch(BusinessException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), "Falha!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Falha!"));
         }
         this.initObject();
     }

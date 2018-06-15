@@ -39,8 +39,11 @@ and open the template in the editor.
             <h:column><b>Valor </b>R$ #{row.valor}</h:column>
             <h:column>
                 <h:form>
-                    <h:commandButton actionListener="#{controladorReceitaIncomum.removerReceitaIncomum(row)}" value="Remover" />
-                    <h:commandButton actionListener="#{controladorReceitaIncomum.setReceitaIncomum(row)}" action="receita-incomum" value="Detalhes" />
+                    <h:panelGrid columns="3">
+                        <h:commandButton actionListener="#{controladorReceitaIncomum.removerReceitaIncomum(row)}" value="Remover" />
+                        <h:commandButton rendered="#{row.atualizada}" actionListener="#{controladorReceitaIncomum.removerDesfazerAlteracoes(row)}" value="Remover e desfazer mudanças" />
+                        <h:outputLabel rendered="#{not row.atualizada}" value="Será atualizada dia #{row.data.toString()}" />
+                    </h:panelGrid>
                 </h:form>
             </h:column>
         </h:dataTable>

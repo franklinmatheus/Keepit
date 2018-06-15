@@ -39,7 +39,7 @@ public class ControladorDespesaIncomum {
             this.despesaIncomumDAO.create(despesaIncomum);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa incomum adicionada!", "Sucesso!"));
         } catch(BusinessException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), "Falha!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Falha!"));
         }
         this.initObject();
     }

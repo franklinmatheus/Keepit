@@ -29,6 +29,20 @@ public class ReceitaIncomum extends Receita implements Serializable {
      */
     @Column(name = "emissor", nullable = true)
     private String emissor;
+    
+    /**
+     * Define se a receita já entrou no saldo do usuário. 
+     */
+    @Column(name = "atualizada")
+    private boolean atualizada;
+
+    public boolean isAtualizada() {
+        return atualizada;
+    }
+
+    public void setAtualizada(boolean atualizada) {
+        this.atualizada = atualizada;
+    }
 
     public String getMotivo() {
         return motivo;

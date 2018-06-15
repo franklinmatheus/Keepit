@@ -6,16 +6,25 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <title>Keepit</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <body>
+        <f:event type="preRenderView" listener="#{controladorReceitaIncomum.checarReceitasIncomuns()}"/>
         <p>Inicio</p>
         <hr/>
         <h3>Olá, #{controladorLogin.usuario.nome}</h3>
+        Seu saldo atual é 
+        <p:outputLabel rendered="#{controladorLogin.usuario.saldo eq 0}" style="color: black" value="R$ #{controladorLogin.usuario.saldo}" />
+        <p:outputLabel rendered="#{controladorLogin.usuario.saldo gt 0}" style="color: green" value="R$ #{controladorLogin.usuario.saldo}" />
+        <p:outputLabel rendered="#{controladorLogin.usuario.saldo lt 0}" style="color: red" value="R$ #{controladorLogin.usuario.saldo}" />
+        <p:messages id="messages" />
+        <hr/>
         <h:panelGrid columns="2">
             <h:button value="Adicionar receita incomum" outcome="formulario-receita-incomum" />
             <h:button value="Adicionar receita comum" outcome="formulario-receita-comum" />

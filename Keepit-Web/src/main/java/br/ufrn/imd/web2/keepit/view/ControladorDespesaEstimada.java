@@ -39,7 +39,7 @@ public class ControladorDespesaEstimada {
             this.despesaEstimadaDAO.create(despesaEstimada);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa estimada adicionada!", "Sucesso!"));
         } catch(BusinessException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, e.getMessage(), "Falha!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Falha!"));
         }
         this.initObject();
     }

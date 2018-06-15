@@ -42,6 +42,10 @@ public class ControladorUsuario implements Serializable {
         this.initObject();
     }
     
+    public void editarUsuario(Usuario usuario) {
+        usuarioDAO.edit(usuario);
+    }
+    
     public List<Usuario> listaUsuarios() {
         return usuarioDAO.findAll();
     }

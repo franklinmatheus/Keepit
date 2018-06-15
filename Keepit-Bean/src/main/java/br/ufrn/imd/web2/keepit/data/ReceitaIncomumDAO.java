@@ -44,11 +44,7 @@ public class ReceitaIncomumDAO extends AbstractDAO<ReceitaIncomum> implements Re
     @Override
     protected void validate(ReceitaIncomum entity) throws BusinessException {
         Date hoje = new Date();
-        if (entity.getData().compareTo(hoje) > 0) {
-            throw new BusinessException("Data inválida!");
-        } else if (entity.getValor() <= 0) {
+        if (entity.getValor() <= 0)
             throw new BusinessException("Valor inválido!");
-        }
     }
-
 }

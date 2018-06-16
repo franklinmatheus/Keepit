@@ -51,7 +51,7 @@ public class ControladorReceitaComum {
         try {
             receitaComumDAO.create(receitaComum);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita comum adicionada!", "Sucesso!"));
-            if(this.estaAtrasada(receitaComum) && this.receitaComum.isAutomatica()) {
+            if (this.estaAtrasada(receitaComum) && this.receitaComum.isAutomatica()) {
                 this.atualizarReceitaComum(receitaComum);
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saldo atualizado!", "Sucesso!"));
             }
@@ -63,7 +63,7 @@ public class ControladorReceitaComum {
 
     public void removerReceitaComum(ReceitaComum receitaComum) {
         this.receitaComumDAO.remove(receitaComum);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita " + receitaComum.getTitulo() + " foi removida!" , "Falha!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita " + receitaComum.getTitulo() + " foi removida!", "Falha!"));
     }
 
     public void editarReceitaComum(ReceitaComum receitaComum) {
@@ -108,7 +108,6 @@ public class ControladorReceitaComum {
                     precisamAtualizar++;
                 }
             }
-
         }
 
         if (quantidade > 0) {

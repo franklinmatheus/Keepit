@@ -17,6 +17,7 @@ and open the template in the editor.
     <body>
         <f:event type="preRenderView" listener="#{controladorReceitaIncomum.checarReceitasIncomuns()}"/>
         <f:event type="preRenderView" listener="#{controladorReceitaComum.checarReceitasComuns()}"/>
+        <f:event type="preRenderView" listener="#{controladorDespesaComum.checarDespesasComuns()}"/>
         <p>Inicio</p>
         <hr/>
         <h3>Olá, #{controladorLogin.usuario.nome}</h3>

@@ -98,12 +98,23 @@ public class ControladorDespesaEstimada {
         int quantidade = 0;
 
         for (DespesaEstimada despesa : despesas) {
-            quantidade++;
+            if (this.estaAtrasada(despesa)) {
+                quantidade++;
+            }
         }
-
         if (quantidade > 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Você precisa confirmar " + quantidade + " despesas estimadas!", "Sucesso!"));
         }
+    }
+
+    public double gastoEstimado() {
+        List<DespesaEstimada> despesas = this.getDespesasEstimadas();
+        double total = 0;
+
+        for (DespesaEstimada despesa : despesas) {
+            total += despesa.getValor();
+        }
+        return total;
     }
 
     @PostConstruct

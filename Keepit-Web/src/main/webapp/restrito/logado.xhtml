@@ -26,8 +26,6 @@ and open the template in the editor.
         <p:outputLabel rendered="#{controladorLogin.usuario.saldo gt 0}" style="color: green" value="R$ #{controladorLogin.usuario.saldo}" />
         <p:outputLabel rendered="#{controladorLogin.usuario.saldo lt 0}" style="color: red" value="R$ #{controladorLogin.usuario.saldo}" />
         <p:messages id="messages" /><br></br>
-        <p:outputLabel value="A média das despesas de usuários de sua classe social é R$#{comparadorUsuario.mediaDasDespesasDeTodosUsuariosNosUltimos30Dias()}" />
-        <p:chart type="line" model="#{comparadorUsuario.lineModel}" style="height:300px;width:80%"/>
         <hr/>
         <h:panelGrid columns="2">
             <h:button value="Adicionar receita incomum" outcome="formulario-receita-incomum" />
@@ -41,5 +39,8 @@ and open the template in the editor.
         <h:form>
             <h:commandButton id="submit" value="Logout" actionListener="#{controladorLogin.logout()}" action="/login.xhtml?faces-redirect=true"/>
         </h:form>
+        <hr/>
+        <p:outputLabel value="A média das despesas de usuários de sua classe social é R$ #{comparadorUsuario.mediaDasDespesasDeTodosUsuariosNosUltimos30Dias()}" />
+        <p:chart type="line" model="#{comparadorUsuario.lineModel}" style="height:300px;width:80%"/>
     </body>
 </html>

@@ -6,8 +6,6 @@
 package br.ufrn.imd.web2.keepit.entity;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -104,19 +102,38 @@ public class Usuario implements Serializable {
         return despesas;
     }
     
-//    Duplicação de código
-//    public List<Despesa> getDespesasUltimos30Dias() {
-//        Date date = new Date();
-//        List<Despesa> ultimasDespesas = new ArrayList<>();
-//        for(Despesa d : despesas){
-//            int result = date.compareTo(d.getData());
-//            if(result <=30 && result >= 0){
-//                ultimasDespesas.add(d);
-//            }
-//        }
-//        return ultimasDespesas;
-//    }
+    public void setDespesas(List<Despesa> despesas) {
+        this.despesas = despesas;
+    }
     
+    public List<Receita> getReceitas() {
+        return receitas;
+    }
+        
+    public void setReceitas(List<Receita> receitas) {
+        this.receitas = receitas;
+    }
+    
+    public List<Object> getUltimos30DiasAPartirDe(Class classe, Date date) {
+        List<Object> ultimas = new ArrayList<>();
+        if(Despesa.class.equals(classe.getClass())){
+            for(Despesa d : despesas){
+                int result = date.compareTo(d.getData());
+                if(result <=30 && result >= 0){
+                    ultimas.add(d);
+                }
+            }
+        } else if(Receita.class.equals(classe.getClass())){
+            for(Receita r : receitas){
+                int result = date.compareTo(r.getData());
+                if(result <=30 && result >= 0){
+                    ultimas.add(r);
+                }
+            }
+        }
+        return ultimas;
+    }
+        
     public List<Despesa> getDespesasUltimos30DiasAPartirDe(Date date) {
         List<Despesa> ultimasDespesas = new ArrayList<>();
         for(Despesa d : despesas){
@@ -128,27 +145,6 @@ public class Usuario implements Serializable {
         return ultimasDespesas;
     }
     
-    public void setDespesas(List<Despesa> despesas) {
-        this.despesas = despesas;
-    }
-    
-    public List<Receita> getReceitas() {
-        return receitas;
-    }
-    
-//    Duplicação de código
-//    public List<Receita> getReceitasUltimos30Dias() {
-//        Date date = new Date();
-//        List<Receita> ultimasReceitas = new ArrayList<>();
-//        for(Receita r : receitas){
-//            int result = date.compareTo(r.getData());
-//            if(result <=30 && result >= 0){
-//                ultimasReceitas.add(r);
-//            }
-//        }
-//        return ultimasReceitas;
-//    }
-    
     public List<Receita> getReceitasUltimos30DiasAPartirDe(Date date) {
         List<Receita> ultimasReceitas = new ArrayList<>();
         for(Receita r : receitas){
@@ -159,11 +155,7 @@ public class Usuario implements Serializable {
         }
         return ultimasReceitas;
     }
-    
-    public void setReceitas(List<Receita> receitas) {
-        this.receitas = receitas;
-    }
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

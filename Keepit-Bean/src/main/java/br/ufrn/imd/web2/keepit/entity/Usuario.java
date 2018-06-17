@@ -1,11 +1,13 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 package br.ufrn.imd.web2.keepit.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,70 +59,118 @@ public class Usuario implements Serializable {
     private List<Receita> receitas = new ArrayList<>();
     
     public Usuario() { }
-
+    
     public long getId() {
         return id;
     }
-
+    
     public void setId(long id) {
         this.id = id;
     }
-
+    
     public String getNome() {
         return nome;
     }
-
+    
     public void setNome(String nome) {
         this.nome = nome;
     }
-
+    
     public Date getDataNascimento() {
         return dataNascimento;
     }
-
+    
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
-
+    
     public double getSaldo() {
         return saldo;
     }
-
+    
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
-
+    
     public ClasseSocial getClasse_social() {
         return classe_social;
     }
-
+    
     public void setClasse_social(ClasseSocial classe_social) {
         this.classe_social = classe_social;
     }
-
+    
     public List<Despesa> getDespesas() {
         return despesas;
     }
-
+    
+//    Duplicação de código
+//    public List<Despesa> getDespesasUltimos30Dias() {
+//        Date date = new Date();
+//        List<Despesa> ultimasDespesas = new ArrayList<>();
+//        for(Despesa d : despesas){
+//            int result = date.compareTo(d.getData());
+//            if(result <=30 && result >= 0){
+//                ultimasDespesas.add(d);
+//            }
+//        }
+//        return ultimasDespesas;
+//    }
+    
+    public List<Despesa> getDespesasUltimos30DiasAPartirDe(Date date) {
+        List<Despesa> ultimasDespesas = new ArrayList<>();
+        for(Despesa d : despesas){
+            int result = date.compareTo(d.getData());
+            if(result <=30 && result >= 0){
+                ultimasDespesas.add(d);
+            }
+        }
+        return ultimasDespesas;
+    }
+    
     public void setDespesas(List<Despesa> despesas) {
         this.despesas = despesas;
     }
-
+    
     public List<Receita> getReceitas() {
         return receitas;
     }
-
+    
+//    Duplicação de código
+//    public List<Receita> getReceitasUltimos30Dias() {
+//        Date date = new Date();
+//        List<Receita> ultimasReceitas = new ArrayList<>();
+//        for(Receita r : receitas){
+//            int result = date.compareTo(r.getData());
+//            if(result <=30 && result >= 0){
+//                ultimasReceitas.add(r);
+//            }
+//        }
+//        return ultimasReceitas;
+//    }
+    
+    public List<Receita> getReceitasUltimos30DiasAPartirDe(Date date) {
+        List<Receita> ultimasReceitas = new ArrayList<>();
+        for(Receita r : receitas){
+            int result = date.compareTo(r.getData());
+            if(result <=30 && result >= 0){
+                ultimasReceitas.add(r);
+            }
+        }
+        return ultimasReceitas;
+    }
+    
     public void setReceitas(List<Receita> receitas) {
         this.receitas = receitas;
     }
-
+    
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 43 * hash + (int) (this.id ^ (this.id >>> 32));
         return hash;
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

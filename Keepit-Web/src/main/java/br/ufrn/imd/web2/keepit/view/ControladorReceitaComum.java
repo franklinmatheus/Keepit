@@ -48,6 +48,7 @@ public class ControladorReceitaComum {
 
     public void criarReceitaComum() {
         this.receitaComum.setUsuario(controladorLogin.getUsuario());
+        this.receitaComum.setData(new Date());
         try {
             receitaComumDAO.create(receitaComum);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita comum adicionada!", "Sucesso!"));
@@ -75,10 +76,42 @@ public class ControladorReceitaComum {
     }
 
     public boolean estaAtrasada(ReceitaComum receitaComum) {
+//        Date hoje = new Date();
+//        Calendar calendario = Calendar.getInstance();
+//        if (receitaComum.getDiaDoMes() < calendario.get(Calendar.DAY_OF_MONTH)) {
+//            Calendar auxHoje = Calendar.getInstance();
+//            Calendar auxData = Calendar.getInstance();
+//            
+//            auxHoje.setTime(hoje);
+//            auxData.setTime(receitaComum.getData());
+//            if (receitaComum.getUltimaAtualizacao() == null) {
+//                //if (hoje.equals(receitaComum.getData()) || hoje.after(receitaComum.getData())) {
+//                if (auxHoje.get(Calendar.MONTH) > auxData.get(Calendar.MONTH)) {
+//                    System.out.println("1: " + auxHoje.get(Calendar.MONTH) + "|" + auxData.get(Calendar.MONTH));
+//                    return true;
+//                }
+//            } else {
+//                auxData.setTime(receitaComum.getUltimaAtualizacao());
+//                if (auxHoje.get(Calendar.MONTH) > auxData.get(Calendar.MONTH)) {
+//                    System.out.println("2: " + auxHoje.get(Calendar.MONTH) + "|" + auxData.get(Calendar.MONTH));
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
         Date hoje = new Date();
         Calendar calendario = Calendar.getInstance();
-        if (receitaComum.getDiaDoMes() <= calendario.get(Calendar.DAY_OF_MONTH)) {
-            if (receitaComum.getData() == null || receitaComum.getData().compareTo(hoje) > 0) {
+        if (receitaComum.getDiaDoMes() < calendario.get(Calendar.DAY_OF_MONTH)) {
+            if (receitaComum.getUltimaAtualizacao() == null) {
+                if (receitaComum.getData().compareTo(hoje) > 0) {
+                    return true;
+                }
+            } else if (receitaComum.getUltimaAtualizacao().compareTo(hoje) > 0) {
+                return true;
+            }
+        } else if (receitaComum.getDiaDoMes() == calendario.get(Calendar.DAY_OF_MONTH)) {
+            if (receitaComum.getUltimaAtualizacao() == null || receitaComum.getUltimaAtualizacao().compareTo(hoje) > 0) {
+                System.out.println("AQUI");
                 return true;
             }
         }
@@ -89,7 +122,7 @@ public class ControladorReceitaComum {
         Date hoje = new Date();
         this.controladorLogin.getUsuario().setSaldo(this.controladorLogin.getUsuario().getSaldo() + receitaComum.getValor());
         this.controladorUsuario.editarUsuario(controladorLogin.getUsuario());
-        receitaComum.setData(hoje);
+        receitaComum.setUltimaAtualizacao(hoje);
         this.editarReceitaComum(receitaComum);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita comum atualizada!", "Sucesso!"));
     }

@@ -48,6 +48,7 @@ public class ControladorDespesaComum {
 
     public void criarDespesaComum() {
         this.despesaComum.setUsuario(controladorLogin.getUsuario());
+        this.despesaComum.setData(new Date());
         try {
             this.despesaComumDAO.create(despesaComum);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa comum adicionada!", "Sucesso!"));
@@ -76,8 +77,17 @@ public class ControladorDespesaComum {
     public boolean estaAtrasada(DespesaComum despesaComum) {
         Date hoje = new Date();
         Calendar calendario = Calendar.getInstance();
-        if (despesaComum.getDiaDoMes() <= calendario.get(Calendar.DAY_OF_MONTH)) {
-            if (despesaComum.getData() == null || despesaComum.getData().compareTo(hoje) > 0) {
+        if (despesaComum.getDiaDoMes() < calendario.get(Calendar.DAY_OF_MONTH)) {
+            if (despesaComum.getUltimaAtualizacao() == null) {
+                if (despesaComum.getData().compareTo(hoje) > 0) {
+                    return true;
+                }
+            } else if (despesaComum.getUltimaAtualizacao().compareTo(hoje) > 0) {
+                return true;
+            }
+        } else if (despesaComum.getDiaDoMes() == calendario.get(Calendar.DAY_OF_MONTH)) {
+            if (despesaComum.getUltimaAtualizacao() == null || despesaComum.getUltimaAtualizacao().compareTo(hoje) > 0) {
+                System.out.println("AQUI");
                 return true;
             }
         }
@@ -88,7 +98,7 @@ public class ControladorDespesaComum {
         Date hoje = new Date();
         this.controladorLogin.getUsuario().setSaldo(this.controladorLogin.getUsuario().getSaldo() - despesaComum.getValor());
         this.controladorUsuario.editarUsuario(controladorLogin.getUsuario());
-        despesaComum.setData(hoje);
+        despesaComum.setUltimaAtualizacao(hoje);
         this.editarDespesaComum(despesaComum);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa comum atualizada!", "Sucesso!"));
     }

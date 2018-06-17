@@ -40,8 +40,8 @@ and open the template in the editor.
                 <h:form>
                     <h:panelGrid columns="2">
                         <h:commandButton actionListener="#{controladorReceitaComum.removerReceitaComum(row)}" value="Remover" />
-                        <h:outputLabel rendered="#{row.automatica and row.data != null}" value="Última atualização: #{row.data.toString()}" />
-                        <h:outputLabel rendered="#{row.automatica and row.data eq null}" value="Será aplicada somente próximo dia #{row.diaDoMes}" />
+                        <h:outputLabel rendered="#{row.automatica and row.ultimaAtualizacao != null}" value="Última atualização: #{row.ultimaAtualizacao.toString()}" />
+                        <h:outputLabel rendered="#{row.automatica and row.ultimaAtualizacao eq null}" value="Será aplicada somente próximo dia #{row.diaDoMes}" />
                         <h:commandButton rendered="#{not row.automatica and controladorReceitaComum.estaAtrasada(row)}" actionListener="#{controladorReceitaComum.atualizarReceitaComum(row)}" value="Atualizar!" />
                         <h:outputLabel rendered="#{not row.automatica and not controladorReceitaComum.estaAtrasada(row)}" value="Já está atualizada!" />
                     </h:panelGrid>

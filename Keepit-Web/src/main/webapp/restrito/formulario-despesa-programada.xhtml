@@ -21,7 +21,7 @@ and open the template in the editor.
             <p:messages id="message" />
             <h:panelGrid columns="2">
                 <h:outputLabel value="Titulo da despesa " />
-                <h:inputText value="#{controladorDespesaProgramada.despesaProgramada.titulo}" required="true" autocomplete="true"></h:inputText>
+                <p:inputText value="#{controladorDespesaProgramada.despesaProgramada.titulo}" required="true" autocomplete="true" />
                 <h:outputLabel value="Valor " />
                 <p:inputNumber decimalPlaces="2" value="#{controladorDespesaProgramada.despesaProgramada.valor}" required="true" autocomplete="true" />
                 <h:outputLabel value="Data " />
@@ -36,7 +36,8 @@ and open the template in the editor.
             <h:column>
                 <h:form>
                     <h:commandButton actionListener="#{controladorDespesaProgramada.removerDespesaProgramada(row)}" value="Remover" />
-                    <h:commandButton actionListener="#{controladorDespesaProgramada.setDespesaProgramada(row)}" action="despesa-programada" value="Detalhes" />
+                    <h:outputLabel rendered="#{not controladorDespesaProgramada.estaAtrasada(row)}" value="Prevista para o dia #{row.data.toString()}" />
+                    <h:commandButton rendered="#{controladorDespesaProgramada.estaAtrasada(row)}" actionListener="#{controladorDespesaProgramada.deferirDespesaProgramada(row)}" value="Deferir" />        
                 </h:form>
             </h:column>
         </h:dataTable>

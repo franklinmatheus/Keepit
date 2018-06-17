@@ -18,6 +18,8 @@ and open the template in the editor.
         <f:event type="preRenderView" listener="#{controladorReceitaIncomum.checarReceitasIncomuns()}"/>
         <f:event type="preRenderView" listener="#{controladorReceitaComum.checarReceitasComuns()}"/>
         <f:event type="preRenderView" listener="#{controladorDespesaComum.checarDespesasComuns()}"/>
+        <f:event type="preRenderView" listener="#{controladorDespesaEstimada.checarDespesasEstimadas()}"/>
+        <f:event type="preRenderView" listener="#{controladorDespesaProgramada.checarDespesasProgramadas()}"/>
         <p>Inicio</p>
         <hr/>
         <h3>Olá, #{controladorLogin.usuario.nome}</h3>
@@ -25,13 +27,41 @@ and open the template in the editor.
         <p:outputLabel rendered="#{controladorLogin.usuario.saldo eq 0}" style="color: black" value="R$ #{controladorLogin.usuario.saldo}" />
         <p:outputLabel rendered="#{controladorLogin.usuario.saldo gt 0}" style="color: green" value="R$ #{controladorLogin.usuario.saldo}" />
         <p:outputLabel rendered="#{controladorLogin.usuario.saldo lt 0}" style="color: red" value="R$ #{controladorLogin.usuario.saldo}" />
-        <p:messages id="messages" /><br></br>
+        <h:panelGrid style="background-color: lightgray; width: 100%; padding: 10px; border: 1px black solid;">
+            <h:column>
+                <b><u><h:outputLabel value="Você possui #{controladorDespesaEstimada.despesasEstimadas.size()} despesas estimadas!" /></u></b><br/>
+                <h:outputLabel rendered="#{controladorDespesaEstimada.despesasEstimadas.size() > 0}" value="R$ #{controladorDespesaEstimada.gastoEstimado()} de despesas estimadas foram aplicadas no seu saldo!" />
+            </h:column>
+            <h:column>
+                <b><u><h:outputLabel value="Você possui #{controladorDespesaProgramada.despesasProgramadas.size()} despesas programadas para o futuro!" /></u></b><br/>
+                <h:outputLabel rendered="#{controladorDespesaProgramada.despesasProgramadas.size() > 0}" value="R$ #{controladorDespesaProgramada.gastoProgramado()} estão programados para serem gastos! Verifique suas " />
+                <h:link value="despesas programadas..." outcome="formulario-despesa-programada" />
+            </h:column>
+            <h:column>
+                <b><u><h:outputLabel value="Você possui #{controladorDespesaComum.despesasComuns.size()} despesas comuns previstas para todo mês!" /></u></b><br/>
+                <h:outputText rendered="#{controladorDespesaComum.despesasComuns.size() > 0 and controladorDespesaComum.despesasParaEsteMes() == 0}" value="Mas não tem nenhuma até o final deste mês"/>
+                <h:outputText rendered="#{controladorDespesaComum.despesasComuns.size() > 0 and controladorDespesaComum.despesasParaEsteMes() gt 0}" value="Sendo que #{controladorDespesaComum.despesasParaEsteMes()} serão debitadas até o final deste mês"/>
+            </h:column>
+            <hr/>
+            <h:column>
+                <b><u><h:outputLabel value="Você possui #{controladorReceitaComum.receitasComuns.size()} receitas comuns previstas para todo mês!" /></u></b><br/>
+                <h:outputText rendered="#{controladorReceitaComum.receitasComuns.size() > 0 and controladorReceitaComum.receitasParaEsteMes() == 0}" value="Mas não tem nenhuma até o final deste mês"/>
+                <h:outputText rendered="#{controladorReceitaComum.receitasComuns.size() > 0 and controladorReceitaComum.receitasParaEsteMes() gt 0}" value="Sendo que #{controladorReceitaComum.receitasParaEsteMes()} serão creditadas até o final deste mês"/>
+            </h:column>
+        </h:panelGrid>
+        <p:messages id="messages" />
         <hr/>
-        <h:panelGrid columns="2">
-            <h:button value="Adicionar receita incomum" outcome="formulario-receita-incomum" />
+        <b><h:outputLabel value="Receitas" /></b>
+        <h:panelGrid columns="3">
+            
             <h:button value="Adicionar receita comum" outcome="formulario-receita-comum" />
-            <h:button value="Adicionar despesa incomum" outcome="formulario-despesa-incomum" />
+            <h:button value="Adicionar receita incomum" outcome="formulario-receita-incomum" />
+        </h:panelGrid>
+        <hr/>
+        <b><h:outputLabel value="Despesas" /></b>
+        <h:panelGrid columns="5">
             <h:button value="Adicionar despesa comum" outcome="formulario-despesa-comum" />
+            <h:button value="Adicionar despesa incomum" outcome="formulario-despesa-incomum" />
             <h:button value="Adicionar despesa estimada" outcome="formulario-despesa-estimada" />
             <h:button value="Adicionar despesa programada" outcome="formulario-despesa-programada" />
         </h:panelGrid>

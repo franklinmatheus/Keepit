@@ -117,14 +117,26 @@ public class ControladorReceitaComum {
                 }
             }
         }
-
         if (quantidade > 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, quantidade + " receitas comuns foram atualizadas!", "Sucesso!"));
         }
-
         if (precisamAtualizar > 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, precisamAtualizar + " receitas comuns precisam ser atualizadas manualmente!", "Aviso!"));
         }
+    }
+
+    public int receitasParaEsteMes() {
+        Calendar calendario = Calendar.getInstance();
+        int quantidade = 0;
+        int diaMesAtual = calendario.get(Calendar.DAY_OF_MONTH);
+        List<ReceitaComum> receitas = this.getReceitasComuns();
+
+        for (ReceitaComum receita : receitas) {
+            if (receita.getDiaDoMes() > diaMesAtual) {
+                quantidade++;
+            }
+        }
+        return quantidade;
     }
 
     @PostConstruct

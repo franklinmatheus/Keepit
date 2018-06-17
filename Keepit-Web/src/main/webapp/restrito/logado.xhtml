@@ -9,7 +9,7 @@ and open the template in the editor.
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+    
     <h:head>
         <title>Keepit</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -69,5 +69,8 @@ and open the template in the editor.
         <h:form>
             <h:commandButton id="submit" value="Logout" actionListener="#{controladorLogin.logout()}" action="/login.xhtml?faces-redirect=true"/>
         </h:form>
+        <hr/>
+        <p:outputLabel value="A média das despesas de usuários de sua classe social é R$ #{comparadorUsuario.mediaDasDespesasDeTodosUsuariosNosUltimos30Dias()}" />
+        <p:chart type="line" model="#{comparadorUsuario.lineModel}" style="height:300px;width:80%"/>
     </body>
 </html>

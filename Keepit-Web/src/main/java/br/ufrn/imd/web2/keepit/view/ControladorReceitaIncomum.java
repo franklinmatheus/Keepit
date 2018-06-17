@@ -49,7 +49,7 @@ public class ControladorReceitaIncomum {
         this.receitaIncomum.setAtualizada(false);
         try {
             this.receitaIncomumDAO.create(receitaIncomum);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita incomum adicionada!", "Sucesso!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Receita incomum " + receitaIncomum.getTitulo() + " adicionada!", "Sucesso!"));
             Date hoje = new Date();
             if(this.receitaIncomum.getData().compareTo(hoje) <= 0) {
                 this.controladorLogin.getUsuario().setSaldo(this.controladorLogin.getUsuario().getSaldo() + receitaIncomum.getValor());

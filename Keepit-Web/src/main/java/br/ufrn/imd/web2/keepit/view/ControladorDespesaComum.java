@@ -51,10 +51,9 @@ public class ControladorDespesaComum {
         this.despesaComum.setData(new Date());
         try {
             this.despesaComumDAO.create(despesaComum);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa comum adicionada!", "Sucesso!"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa comum " + despesaComum.getTitulo() + " adicionada!", "Sucesso!"));
             if (this.estaAtrasada(despesaComum) && this.despesaComum.isAutomatica()) {
                 this.atualizarDespesaComum(despesaComum);
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Saldo atualizado!", "Sucesso!"));
             }
         } catch (BusinessException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Falha!"));
@@ -64,6 +63,7 @@ public class ControladorDespesaComum {
 
     public void removerDespesaComum(DespesaComum despesaComum) {
         this.despesaComumDAO.remove(despesaComum);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa comum " + despesaComum.getTitulo() + " removida!", "Sucesso!"));
     }
 
     public void editarDespesaComum(DespesaComum despesaComum) {
@@ -87,7 +87,6 @@ public class ControladorDespesaComum {
             }
         } else if (despesaComum.getDiaDoMes() == calendario.get(Calendar.DAY_OF_MONTH)) {
             if (despesaComum.getUltimaAtualizacao() == null || despesaComum.getUltimaAtualizacao().compareTo(hoje) > 0) {
-                System.out.println("AQUI");
                 return true;
             }
         }
@@ -100,7 +99,7 @@ public class ControladorDespesaComum {
         this.controladorUsuario.editarUsuario(controladorLogin.getUsuario());
         despesaComum.setUltimaAtualizacao(hoje);
         this.editarDespesaComum(despesaComum);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa comum atualizada!", "Sucesso!"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa comum " + despesaComum.getTitulo() + " e saldo atualizados!", "Sucesso!"));
     }
 
     public void checarDespesasComuns() {

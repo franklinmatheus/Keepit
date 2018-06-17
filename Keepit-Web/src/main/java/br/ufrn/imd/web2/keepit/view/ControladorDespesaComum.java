@@ -117,14 +117,26 @@ public class ControladorDespesaComum {
                 }
             }
         }
-
         if (quantidade > 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, quantidade + " despesas comuns foram atualizadas!", "Sucesso!"));
         }
-
         if (precisamAtualizar > 0) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, precisamAtualizar + " despesas comuns precisam ser atualizadas manualmente!", "Aviso!"));
         }
+    }
+    
+    public int despesasParaEsteMes() {
+        Calendar calendario = Calendar.getInstance();
+        int quantidade = 0;
+        int diaMesAtual = calendario.get(Calendar.DAY_OF_MONTH);
+        List<DespesaComum> despesas = this.getDespesasComuns();
+
+        for (DespesaComum despesa : despesas) {
+            if (despesa.getDiaDoMes() > diaMesAtual) {
+                quantidade++;
+            }
+        }
+        return quantidade;
     }
 
     @PostConstruct

@@ -38,7 +38,7 @@ and open the template in the editor.
                     <h:commandButton rendered="#{row.confirmada}" actionListener="#{controladorDespesaEstimada.removerDespesaEstimada(row)}" value="Remover" />
                     <h:commandButton actionListener="#{controladorDespesaEstimada.cancelarDespesaEstimada(row)}" value="Cancelar e remover" />
                     <h:commandButton rendered="#{controladorDespesaEstimada.estaAtrasada(row) and not row.confirmada}" actionListener="#{controladorDespesaEstimada.confirmarDespesaEstimada(row)}" value="Confirmar despesa estimada" />
-                    <h:outputLabel rendered="#{not controladorDespesaEstimada.estaAtrasada(row)}" value="Prevista para dia #{row.data.toString()}" />
+                    <h:outputLabel rendered="#{not controladorDespesaEstimada.estaAtrasada(row) and not row.confirmada}" value="Prevista para dia #{row.data.toString()}" />
                     <h:outputLabel rendered="#{row.confirmada}" value="Despesa estimada confirmada!" />
                 </h:form>
             </h:column>

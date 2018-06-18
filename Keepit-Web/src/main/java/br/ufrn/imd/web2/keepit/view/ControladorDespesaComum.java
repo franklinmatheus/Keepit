@@ -124,7 +124,7 @@ public class ControladorDespesaComum {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, precisamAtualizar + " despesas comuns precisam ser atualizadas manualmente!", "Aviso!"));
         }
     }
-    
+
     public int despesasParaEsteMes() {
         Calendar calendario = Calendar.getInstance();
         int quantidade = 0;
@@ -137,6 +137,16 @@ public class ControladorDespesaComum {
             }
         }
         return quantidade;
+    }
+
+    public double totalDespesasComuns() {
+        List<DespesaComum> despesas = this.getDespesasComuns();
+        double total = 0;
+
+        for (DespesaComum despesa : despesas) {
+            total += despesa.getValor();
+        }
+        return total;
     }
 
     @PostConstruct

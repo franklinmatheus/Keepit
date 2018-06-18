@@ -79,6 +79,7 @@ public class ControladorDespesaProgramada {
 
     public void deferirDespesaProgramada(DespesaProgramada despesaProgramada) {
         despesaProgramada.setDeferida(true);
+        despesaProgramadaDAO.edit(despesaProgramada);
         this.controladorLogin.getUsuario().setSaldo(this.controladorLogin.getUsuario().getSaldo() - despesaProgramada.getValor());
         this.controladorUsuario.editarUsuario(this.controladorLogin.getUsuario());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Despesa programada " + despesaProgramada.getTitulo() + " deferida e seu saldo foi atualizado!", "Falha!"));

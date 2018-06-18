@@ -36,8 +36,8 @@ and open the template in the editor.
             <h:column>
                 <h:form>
                     <h:commandButton actionListener="#{controladorDespesaProgramada.removerDespesaProgramada(row)}" value="Remover" />
-                    <h:outputLabel rendered="#{not controladorDespesaProgramada.estaAtrasada(row)}" value="Prevista para o dia #{row.data.toString()}" />
-                    <h:commandButton rendered="#{controladorDespesaProgramada.estaAtrasada(row)}" actionListener="#{controladorDespesaProgramada.deferirDespesaProgramada(row)}" value="Deferir" />        
+                    <h:outputLabel rendered="#{not controladorDespesaProgramada.estaAtrasada(row) and not row.deferida}" value="Prevista para o dia #{row.data.toString()}" />
+                    <h:commandButton rendered="#{controladorDespesaProgramada.estaAtrasada(row) and not row.deferida}" actionListener="#{controladorDespesaProgramada.deferirDespesaProgramada(row)}" value="Deferir" />        
                 </h:form>
             </h:column>
         </h:dataTable>

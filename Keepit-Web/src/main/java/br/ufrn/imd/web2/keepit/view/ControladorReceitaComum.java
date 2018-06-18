@@ -138,6 +138,16 @@ public class ControladorReceitaComum {
         }
         return quantidade;
     }
+    
+    public double totalReceitasComuns() {
+        List<ReceitaComum> receitas = this.getReceitasComuns();
+        double total = 0;
+
+        for (ReceitaComum receita : receitas) {
+            total += receita.getValor();
+        }
+        return total;
+    }
 
     @PostConstruct
     private void initObject() {

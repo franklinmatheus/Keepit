@@ -8,6 +8,7 @@ package br.ufrn.imd.web2.keepit.view;
 import br.ufrn.imd.web2.keepit.data.DespesaEstimadaLocalDAO;
 import br.ufrn.imd.web2.keepit.entity.DespesaEstimada;
 import br.ufrn.imd.web2.keepit.exception.BusinessException;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -113,6 +114,38 @@ public class ControladorDespesaEstimada {
 
         for (DespesaEstimada despesa : despesas) {
             total += despesa.getValor();
+        }
+        return total;
+    }
+    
+    public int despesasParaEsteMes() {
+        Calendar calendario = Calendar.getInstance();
+        int quantidade = 0;
+        int diaMesAtual = calendario.get(Calendar.DAY_OF_MONTH);
+        int mesAtual = calendario.get(Calendar.MONTH);
+        List<DespesaEstimada> despesas = this.getDespesasEstimadas();
+        
+        for (DespesaEstimada despesa : despesas) {
+            calendario.setTime(despesa.getData());
+            if (calendario.get(Calendar.DAY_OF_MONTH) > diaMesAtual && calendario.get(Calendar.MONTH) == mesAtual) {
+                quantidade++;
+            }
+        }
+        return quantidade;
+    }
+    
+    public double totalParaEsteMes() {
+        Calendar calendario = Calendar.getInstance();
+        double total = 0;
+        int diaMesAtual = calendario.get(Calendar.DAY_OF_MONTH);
+        int mesAtual = calendario.get(Calendar.MONTH);
+        List<DespesaEstimada> despesas = this.getDespesasEstimadas();
+        
+        for (DespesaEstimada despesa : despesas) {
+            calendario.setTime(despesa.getData());
+            if (calendario.get(Calendar.DAY_OF_MONTH) > diaMesAtual && calendario.get(Calendar.MONTH) == mesAtual) {
+                total += despesa.getValor();
+            }
         }
         return total;
     }

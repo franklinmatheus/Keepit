@@ -58,7 +58,9 @@ public class ComparadorUsuario {
     private void createLineModel() {
         lineModel = new LineChartModel();
         lineModel.addSeries(initDespesaLinearModel());
-        lineModel.addSeries(initReceitaLinearModel());
+//        lineModel.addSeries(initReceitaLinearModel());
+        lineModel.addSeries(initUserDespesasLinearModel());
+        lineModel.addSeries(initUserReceitasLinearModel());
         lineModel.setTitle("Comparação com outros usuarios nos últimos 30 dias");
         lineModel.setLegendPosition("e");
         Axis yAxis = lineModel.getAxis(AxisType.Y);

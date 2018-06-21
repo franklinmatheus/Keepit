@@ -43,7 +43,7 @@ public class ComparadorUsuario {
     
     private Usuario usuarioSessao;
     
-    private LineChartModel lineModel;// = new LineChartModel();
+    private LineChartModel lineModel;
     
     @PostConstruct
     public void init(){
@@ -58,8 +58,8 @@ public class ComparadorUsuario {
     private void createLineModel() {
         lineModel = new LineChartModel();
         lineModel.addSeries(initDespesaLinearModel());
-//        lineModel.addSeries(initReceitaLinearModel());
-        lineModel.setTitle("Despesas de usuarios nos ultimos 30 dias");
+        lineModel.addSeries(initReceitaLinearModel());
+        lineModel.setTitle("Comparação com outros usuarios nos últimos 30 dias");
         lineModel.setLegendPosition("e");
         Axis yAxis = lineModel.getAxis(AxisType.Y);
         yAxis.setLabel("R$ ");
@@ -68,33 +68,18 @@ public class ComparadorUsuario {
     }
     
     private LineChartSeries initDespesaLinearModel() {
-//        LineChartModel model = new LineChartModel();
-        
         LineChartSeries seriesDespesa = new LineChartSeries();
-        seriesDespesa.setLabel("Despesas de Usuários");
-        
-//        LineChartSeries seriesReceita = new LineChartSeries();
-//        seriesReceita.setLabel("Receitas de Usuários");
+        seriesDespesa.setLabel("Despesas de todos os Usuários");
         
         for(Usuario u : usuarios){
             List<Despesa> despesas = u.getDespesasUltimos30DiasAPartirDe(new Date());
-//            List<Receita> receitas = u.getReceitasUltimos30DiasAPartirDe(new Date());
             for(Despesa d : despesas){
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(d.getData());
                 int day = cal.get(Calendar.DAY_OF_MONTH);
                 seriesDespesa.set(day, d.getValor());
             }
-//            for(Receita r : receitas){
-//                Calendar cal = Calendar.getInstance();
-//                cal.setTime(r.getData());
-//                int day = cal.get(Calendar.DAY_OF_MONTH);
-//                seriesReceita.set(day, r.getValor());
-//            }
         }
-        
-//        model.addSeries(seriesDespesa);
-//        model.addSeries(seriesReceita);
         
         return seriesDespesa;
     }
@@ -102,21 +87,11 @@ public class ComparadorUsuario {
     private LineChartSeries initReceitaLinearModel() {
         LineChartModel model = new LineChartModel();
         
-//        LineChartSeries seriesDespesa = new LineChartSeries();
-//        seriesDespesa.setLabel("Despesas de Usuários");
-        
         LineChartSeries seriesReceita = new LineChartSeries();
-        seriesReceita.setLabel("Receitas de Usuários");
+        seriesReceita.setLabel("Receitas de todos os Usuários");
         
         for(Usuario u : usuarios){
-//            List<Despesa> despesas = u.getDespesasUltimos30DiasAPartirDe(new Date());
             List<Receita> receitas = u.getReceitasUltimos30DiasAPartirDe(new Date());
-//            for(Despesa d : despesas){
-//                Calendar cal = Calendar.getInstance();
-//                cal.setTime(d.getData());
-//                int day = cal.get(Calendar.DAY_OF_MONTH);
-//                seriesDespesa.set(day, d.getValor());
-//            }
             for(Receita r : receitas){
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(r.getData());
@@ -125,10 +100,41 @@ public class ComparadorUsuario {
             }
         }
         
-//        model.addSeries(seriesDespesa);
-//        model.addSeries(seriesReceita);
+        return seriesReceita;
+    }
+
+    private LineChartSeries initUserReceitasLinearModel() {
+        LineChartModel model = new LineChartModel();
+        
+        LineChartSeries seriesReceita = new LineChartSeries();
+        seriesReceita.setLabel("Suas receitas");
+        
+        List<Receita> receitas = controladorLogin.getUsuario().getReceitasUltimos30DiasAPartirDe(new Date());
+        for(Receita r : receitas){
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(r.getData());
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            seriesReceita.set(day, r.getValor());
+        }
         
         return seriesReceita;
+    }
+    
+    private LineChartSeries initUserDespesasLinearModel() {
+        LineChartModel model = new LineChartModel();
+        
+        LineChartSeries seriesDespesa = new LineChartSeries();
+        seriesDespesa.setLabel("Suas despesas");
+        
+        List<Despesa> despesas = controladorLogin.getUsuario().getDespesasUltimos30DiasAPartirDe(new Date());
+            for(Despesa d : despesas){
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(d.getData());
+                int day = cal.get(Calendar.DAY_OF_MONTH);
+                seriesDespesa.set(day, d.getValor());
+            }
+        
+        return seriesDespesa;
     }
     
     private void preencherListaDeUsuariosDaMesmaClasseSocial(){

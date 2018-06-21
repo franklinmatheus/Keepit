@@ -105,6 +105,7 @@ and open the template in the editor.
         </h:panelGrid>
         <hr/>
         <p:outputLabel value="A média das despesas de usuários de sua classe social é R$ #{comparadorUsuario.mediaDasDespesasDeTodosUsuariosNosUltimos30Dias()}" />
+        <p:outputLabel value="A média das despesas de usuários de sua classe social é R$ #{comparadorUsuario.mediaDaReceitasDeTodosUsuariosNosUltimos30Dias()}" />
         <p:chart type="line" model="#{comparadorUsuario.lineModel}" style="height:300px;width:80%"/>
     </body>
 </html>
